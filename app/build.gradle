@@ -11,10 +11,44 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    dexOptions {
+        preDexLibraries = false
+        javaMaxHeapSize "2g"
+    }
+//    signingConfigs {
+//        release {
+//            keyAlias 'toys'
+//            keyPassword 'supertoys2468'
+//            storeFile file('key/supertoy.jks')
+//            storePassword 'supertoys2468'
+//        }
+//    }
+
     buildTypes {
+        debug {
+//            signingConfig signingConfigs.release
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig signingConfigs.release
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+    afterEvaluate {
+        tasks.matching {
+            it.name.startsWith('dex')
+        }.each { dx ->
+            if (dx.additionalParameters == null) {
+                dx.additionalParameters = []
+            }
+            dx.additionalParameters += '--multi-dex' // enable multidex
+
+            // optional
+            // dx.additionalParameters += --main-dex-list=$projectDir/<filename>.toString() // enable the main-dex-list
         }
     }
 }
