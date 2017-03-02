@@ -68,6 +68,7 @@ public class PopupDialog {
         //Option
         private Activity activity;
         private int alphaType = 1;//弹框半透明两种实现，0采用设置界面透明度，1采用半透明背景色
+        private String dialogTitle = "";//对话框标题
         private boolean dismissOutside = false;//点击界面关闭
         private boolean dismissBackKey = false;//点击返回键关闭
         private int optionCount = 2;//提示对话框操作数量 优先级：确定>取消>其他
@@ -81,6 +82,11 @@ public class PopupDialog {
         public Builder setAlphaType(int alphaType,Activity activity){
             this.alphaType = alphaType;
             this.activity = activity;
+            return this;
+        }
+
+        public Builder dialogTitle(String dialogTitle){
+            this.dialogTitle = dialogTitle;
             return this;
         }
 
@@ -138,6 +144,7 @@ public class PopupDialog {
         this.context = builder.context;
         this.alphaType = builder.alphaType;
         this.activity = builder.activity;
+        this.dialogTitle = builder.dialogTitle;
         this.dismissOutside = builder.dismissOutside;
         this.dismissBackKey = builder.dismissBackKey;
         this.confirmStr = builder.confirmStr;

@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/popup_light_grey"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="列表弹窗"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_popup_sample_list"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="对话框弹窗-1个按钮"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_popup_sample_dialog1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="对话框弹窗-2个按钮"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_popup_sample_dialog2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="对话框弹窗-3个按钮"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_popup_sample_dialog3"/>
+
+</LinearLayout>

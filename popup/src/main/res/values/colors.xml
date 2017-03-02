@@ -8,5 +8,5 @@
     <color name="popup_selector_on">#ffffff</color>
     <color name="popup_selector_off">#d9d7d7</color>
     <color name="popup_white">#ffffff</color>
-    <color name="popup_light_grey">#b8b8b8</color>
+    <color name="popup_light_grey">#eeeeee</color>
 </resources>

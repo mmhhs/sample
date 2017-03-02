@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.PopupSampleActivity"
+            android:label="@string/title_activity_popup_sample" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,13 +1,13 @@
 package com.little.sample;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnItemListener;
+import com.little.sample.activity.PopupSampleActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class SampleActivity extends AppCompatActivity {
+public class SampleActivity extends Activity {
 
     @InjectView(R.id.activity_sample_component)
     TextView activitySampleComponent;
@@ -36,27 +36,6 @@ public class SampleActivity extends AppCompatActivity {
         componentList.add("时间选择");
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sample, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @OnClick(R.id.activity_sample_component)
     public void onClick() {
@@ -67,6 +46,7 @@ public class SampleActivity extends AppCompatActivity {
                     case 0:
                         break;
                     case 1:
+                        startActivity(new Intent(SampleActivity.this, PopupSampleActivity.class));
                         break;
                     case 2:
                         break;
