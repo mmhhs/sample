@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="popup_transparent">#70000000</color>
+    <color name="popup_line_color">#e6e6e6</color>
+    <color name="popup_black">#000000</color>
+    <color name="popup_deep_grey">#484848</color>
+    <color name="popup_red">#e73706</color>
+    <color name="popup_selector_on">#ffffff</color>
+    <color name="popup_selector_off">#d9d7d7</color>
+    <color name="popup_white">#ffffff</color>
+    <color name="popup_light_grey">#b8b8b8</color>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Popup</string>
+    <string name="popup_confirm">确定</string>
+    <string name="popup_cancel">取消</string>
+    <string name="popup_ignore">忽略</string>
+    <string name="popup_tip">提示</string>
+</resources>
