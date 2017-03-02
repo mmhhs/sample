@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/popup_light_grey">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center"
+        android:text="照片示例"
+        android:textSize="18sp"
+        android:textColor="@color/popup_white"
+        android:background="@color/picture_deep_grey"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="添加单张照片(点击从图库选取或者拍照)"
+        android:textSize="16sp"
+        android:textColor="@color/picture_deep_grey"
+        android:background="@color/popup_white"
+        android:id="@+id/activity_picture_sample_single"/>
+
+    <include
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="20dp"
+        layout="@layout/picture_fresco_center_crop" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="添加多张照片"
+        android:textSize="16sp"
+        android:textColor="@color/picture_deep_grey"
+        android:background="@color/popup_white"/>
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/activity_picture_sample_gridView"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:numColumns="3"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
+        />
+
+
+
+</LinearLayout>

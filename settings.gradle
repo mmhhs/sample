@@ -1,1 +1,1 @@
-include ':app', ':popup'
+include ':app', ':popup', ':picture'

@@ -1,16 +1,25 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:gravity="center"
+    android:orientation="vertical"
     android:background="@color/popup_light_grey">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center"
+        android:text="组件示例"
+        android:textSize="18sp"
+        android:textColor="@color/popup_white"
+        android:background="@color/picture_deep_grey"/>
 
     <TextView android:text="组件列表"
-        android:layout_width="120dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:id="@+id/activity_sample_component"
         android:textColor="@color/popup_black"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:background="@drawable/popup_selector_bg"/>
 
-</RelativeLayout>
+</LinearLayout>
