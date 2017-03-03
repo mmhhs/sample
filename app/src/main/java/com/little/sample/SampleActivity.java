@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnItemListener;
+import com.little.sample.activity.PickerSampleActivity;
 import com.little.sample.activity.PictureSampleActivity;
 import com.little.sample.activity.PopupSampleActivity;
 
@@ -59,6 +60,7 @@ public class SampleActivity extends Activity {
                     case 5:
                         break;
                     case 6:
+                        startActivity(new Intent(SampleActivity.this, PickerSampleActivity.class));
                         break;
                 }
             }

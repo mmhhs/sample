@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Picker</string>
+    <string name="picker_hour">时</string>
+</resources>

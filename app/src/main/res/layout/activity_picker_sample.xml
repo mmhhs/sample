@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/popup_light_grey"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center"
+        android:text="时间选择示例"
+        android:textSize="18sp"
+        android:textColor="@color/popup_white"
+        android:background="@color/picture_deep_grey"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="日期选择：2017-03-03"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_picker_sample_date"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="日期小时选择：2017-03-03 14"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_picker_sample_hour"/>
+
+</LinearLayout>
