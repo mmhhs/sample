@@ -50,7 +50,7 @@ public class PickerSampleActivity extends Activity {
                         .btnTextSize(16)
                         .viewTextSize(24)
                         .minYear(1950)
-                        .maxYear(2017)
+                        .maxYear(2020)
                         .autoDismiss(true)
                         .build();
                 datePickerPopup.showAtLocation(view, Gravity.CENTER, 0, 0);
@@ -60,7 +60,7 @@ public class PickerSampleActivity extends Activity {
                         .btnTextSize(16)
                         .viewTextSize(24)
                         .minYear(1950)
-                        .maxYear(2017)
+                        .maxYear(2020)
                         .showHour(true)
                         .autoDismiss(false)
                         .build();

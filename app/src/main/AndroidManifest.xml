@@ -69,6 +69,22 @@
             android:name=".activity.PickerSampleActivity"
             android:label="@string/title_activity_picker_sample" >
         </activity>
+        <activity
+            android:name=".activity.DropSampleActivity"
+            android:label="@string/title_activity_drop_sample" >
+        </activity>
+        <activity
+            android:name=".activity.TitleSampleActivity"
+            android:label="@string/title_activity_title_sample" >
+        </activity>
+        <activity
+            android:name=".activity.VisitSampleActivity"
+            android:label="@string/title_activity_visit_sample" >
+        </activity>
+        <activity
+            android:name=".activity.TitleCenterSampleActivity"
+            android:label="@string/title_activity_title_center_sample" >
+        </activity>
     </application>
 
 </manifest>

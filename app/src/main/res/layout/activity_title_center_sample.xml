@@ -1,0 +1,19 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/popup_light_grey">
+
+    <com.little.title.TitlePagerLayout
+        android:id="@+id/activity_title_center_sample_titlePagerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:background="@color/popup_white"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_title_center_sample_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp"
+        />
+</LinearLayout>

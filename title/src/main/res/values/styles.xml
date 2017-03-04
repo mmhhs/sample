@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+    <style name="title_line_grey_vertical">
+        <item name="android:background">@color/title_line_color</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0.4dp</item>
+    </style>
+</resources>

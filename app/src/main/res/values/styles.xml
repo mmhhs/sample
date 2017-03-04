@@ -4,5 +4,11 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
     </style>
+    <!-- TitlePagerLayout -->
+    <style name="sample_style_text">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/sample_text</item>
+    </style>
 
 </resources>

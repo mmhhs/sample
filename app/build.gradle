@@ -60,4 +60,7 @@ dependencies {
     compile project(':popup')
     compile project(':picture')
     compile project(':picker')
+    compile project(':drop')
+    compile project(':visit')
+    compile project(':title')
 }

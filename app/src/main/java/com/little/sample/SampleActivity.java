@@ -7,9 +7,12 @@ import android.widget.TextView;
 
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnItemListener;
+import com.little.sample.activity.DropSampleActivity;
 import com.little.sample.activity.PickerSampleActivity;
 import com.little.sample.activity.PictureSampleActivity;
 import com.little.sample.activity.PopupSampleActivity;
+import com.little.sample.activity.TitleSampleActivity;
+import com.little.sample.activity.VisitSampleActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,13 +49,16 @@ public class SampleActivity extends Activity {
             public void onItem(int position) {
                 switch (position) {
                     case 0:
+                        startActivity(new Intent(SampleActivity.this, VisitSampleActivity.class));
                         break;
                     case 1:
                         startActivity(new Intent(SampleActivity.this, PopupSampleActivity.class));
                         break;
                     case 2:
+                        startActivity(new Intent(SampleActivity.this, DropSampleActivity.class));
                         break;
                     case 3:
+                        startActivity(new Intent(SampleActivity.this, TitleSampleActivity.class));
                         break;
                     case 4:
                         startActivity(new Intent(SampleActivity.this, PictureSampleActivity.class));

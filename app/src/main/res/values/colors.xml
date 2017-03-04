@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TitlePagerLayout -->
+    <color name="sample_text_on">#666666</color>
+    <color name="sample_text_off">#2996ff</color>
+</resources>
