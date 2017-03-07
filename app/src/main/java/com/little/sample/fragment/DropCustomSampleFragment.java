@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.little.drop.listener.IOnRefreshListener;
-import com.little.drop.ultimate.UltimateRecyclerView;
+import com.little.drop.ultimate.AnimationRecyclerView;
 import com.little.sample.R;
 import com.little.sample.adapter.DropSampleAdapter;
 import com.little.sample.model.VisitSampleDataEntity;
@@ -30,8 +30,8 @@ import butterknife.InjectView;
 
 public class DropCustomSampleFragment extends Fragment {
     public View rootView;
-    @InjectView(R.id.fragment_drop_swipe_recyclerview)
-    UltimateRecyclerView fragmentDropSwipeRecyclerview;
+    @InjectView(R.id.fragment_drop_custom_recyclerview)
+    AnimationRecyclerView animationRecyclerView;
     @InjectView(R.id.visit_link_container)
     LinearLayout visitLinkContainer;
     @InjectView(R.id.visit_link_loading_layout)
@@ -42,6 +42,7 @@ public class DropCustomSampleFragment extends Fragment {
     private List<VisitSampleDataEntity> list = new ArrayList<VisitSampleDataEntity>();
     int pageNumber = 1;
     int PAGER_COUNT = 15;
+    String tagStr = "VisitSampleActivity";//task唯一标识
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,7 @@ public class DropCustomSampleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_drop_swipe_sample, null);
+            rootView = inflater.inflate(R.layout.fragment_drop_custom_sample, null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             rootView.setLayoutParams(params);
             ButterKnife.inject(this, rootView);
@@ -78,7 +79,12 @@ public class DropCustomSampleFragment extends Fragment {
 
     public void init() {
         initUltimate();
-        refresh(true);
+        VisitSampleDataEntity dataEntity = new VisitSampleDataEntity();
+        for (int i=0;i<10;i++){
+            list.add(dataEntity);
+        }
+        adapter.notifyDataSetChanged();
+//        refresh(true);
     }
 
     @Override
@@ -89,15 +95,15 @@ public class DropCustomSampleFragment extends Fragment {
 
     private void initUltimate() {
         linearLayoutManager = new LinearLayoutManager(getActivity());
-        fragmentDropSwipeRecyclerview.setLayoutManager(linearLayoutManager);
+        animationRecyclerView.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         adapter = new DropSampleAdapter(getActivity(), list);
-        fragmentDropSwipeRecyclerview.setAdapter(adapter);
-        fragmentDropSwipeRecyclerview.enableLoadmore(true);
-        fragmentDropSwipeRecyclerview.enableSwipeRefresh(true);
-        fragmentDropSwipeRecyclerview.setEnd(true);
+        animationRecyclerView.setAdapter(adapter);
+        animationRecyclerView.enableLoadmore(true);
+        animationRecyclerView.enableRefresh(true);
+        animationRecyclerView.setEnd(true);
 //        fragmentDropSwipeRecyclerview.addItemDividerDecoration(getActivity());
-        fragmentDropSwipeRecyclerview.setOnRefreshListener(new IOnRefreshListener() {
+        animationRecyclerView.setOnRefreshListener(new IOnRefreshListener() {
             @Override
             public void onRefresh() {
                 refresh(false);
@@ -116,11 +122,12 @@ public class DropCustomSampleFragment extends Fragment {
     }
 
     void getList(final boolean showLoad) {
-        String url = "https://bfda-app.ifoton.com.cn/serviceProvider";
+        String url = "http://192.168.0.107:8080/serviceProvider/getBrandInfo.action";
         Map<String, Object> argMap = new HashMap<String, Object>();
         argMap.put("page", ""+pageNumber);
         argMap.put("pageSize", ""+PAGER_COUNT);
-        PageVisitTask pageVisitTask = new PageVisitTask(getActivity(),"",visitLinkContainer,visitLinkLoadingLayout,"",showLoad,onRetryListener,url,argMap, TaskConstant.POST);
+        argMap.put("brandType", "3");
+        PageVisitTask pageVisitTask = new PageVisitTask(getActivity(),tagStr,visitLinkContainer,visitLinkLoadingLayout,"",showLoad,onRetryListener,url,argMap, TaskConstant.POST);
         pageVisitTask.setParseClass(VisitSampleResult.class);
         pageVisitTask.setiOnResultListener(new IOnResultListener() {
             @Override
@@ -140,7 +147,7 @@ public class DropCustomSampleFragment extends Fragment {
             @Override
             public void onDone(VisitTask task) {
                 try {
-                    fragmentDropSwipeRecyclerview.refreshFinish();
+                    animationRecyclerView.refreshFinish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -172,9 +179,9 @@ public class DropCustomSampleFragment extends Fragment {
                     list.add(visitSampleDataEntity);
                 }
                 if (resultList.size() < PAGER_COUNT) {
-                    fragmentDropSwipeRecyclerview.setEnd(true);
+                    animationRecyclerView.setEnd(true);
                 } else {
-                    fragmentDropSwipeRecyclerview.setEnd(false);
+                    animationRecyclerView.setEnd(false);
                 }
                 if (list.size() == 0 && task != null) {
                     task.addEmptyView("", "", R.mipmap.visit_retry);

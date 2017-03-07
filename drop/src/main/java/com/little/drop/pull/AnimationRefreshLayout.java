@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -103,6 +104,7 @@ public class AnimationRefreshLayout extends RelativeLayout
 	//第二种头部刷新显示方式
 	private boolean isSecond = true;
 	private AnimationDrawable animationDrawableHeader;
+	private Animation anim;
 
 	private boolean canRefresh = true;
 	private boolean canLoad = true;
@@ -192,6 +194,7 @@ public class AnimationRefreshLayout extends RelativeLayout
 		timer = new MyTimer(updateHandler);
 		refreshDist = DensityUtil.dip2px(context, 60);
 		loadmoreDist = DensityUtil.dip2px(context,60);
+//		anim = AnimationUtils.loadAnimation(context, R.anim.drop_anim_loading);
 	}
 
 	private void hide()
@@ -486,7 +489,7 @@ public class AnimationRefreshLayout extends RelativeLayout
 	{
 		// 初始化下拉布局
 		refreshImageView = (ImageView) refreshView.findViewById(R.id.drop_pull_refresh_head_arrow);
-		setPullViewImageResource();
+//		setPullViewImageResource();
 		refreshStateTextView = (TextView) refreshView
 				.findViewById(R.id.drop_pull_refresh_head_state_text);
 		refreshStateImageView = refreshView.findViewById(R.id.drop_pull_refresh_head_state_image);
@@ -582,7 +585,7 @@ public class AnimationRefreshLayout extends RelativeLayout
 	//change pullView
 	public void setPullViewImageResource() {
 		if (isSecond) {
-			refreshImageView.setImageResource(R.drawable.drop_anim_loading);
+			refreshImageView.setAnimation(anim);
 			animationDrawableHeader = null;
 			animationDrawableHeader = (AnimationDrawable) refreshImageView.getDrawable();
 		}
@@ -619,13 +622,13 @@ public class AnimationRefreshLayout extends RelativeLayout
 	 */
 	private void startHeaderAnimation(){
 		try {
-			setPullViewImageResource();
-			if (animationDrawableHeader.isRunning()) {
-				animationDrawableHeader.stop();
-				animationDrawableHeader.start();
-			}else {
-				animationDrawableHeader.start();
-			}
+//			setPullViewImageResource();
+//			if (animationDrawableHeader.isRunning()) {
+//				animationDrawableHeader.stop();
+//				animationDrawableHeader.start();
+//			}else {
+//				animationDrawableHeader.start();
+//			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}

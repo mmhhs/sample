@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDexApplication;
 
 import com.little.picture.util.fresco.FrescoUtils;
+import com.little.visit.util.LogUtil;
 
 
 public class BaseApplication extends MultiDexApplication {
@@ -26,6 +27,7 @@ public class BaseApplication extends MultiDexApplication {
     }
 
     private void init(){
+        LogUtil.setIsDebug(true);
         initAppForMainProcess();
 //        processName = OptionUtil.getProcessName(this, android.os.Process.myPid());
 //        if (processName != null) {

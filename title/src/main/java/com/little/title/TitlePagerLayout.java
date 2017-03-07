@@ -3,7 +3,6 @@ package com.little.title;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -121,7 +120,6 @@ public class TitlePagerLayout extends LinearLayout {
         });
         textViewList.add(textView);
         addView(textView);
-        Log.e("TitlePagerLayout","getWidth= "+textView.getLayoutParams().width);
         if (mode == TITLE_MODE.WEIGHT_LINE){
             if (position!=(titleItemList.size()-1)){
                 View lineView = LinearLayout.inflate(context, R.layout.title_include_line,null);

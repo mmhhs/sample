@@ -12,6 +12,10 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
+/**
+ * 标题组件示例
+ * 三种模式：居中，等分，等分加分割线
+ */
 public class TitleSampleActivity extends Activity {
 
     @InjectView(R.id.activity_title_sample_a)
@@ -36,8 +40,10 @@ public class TitleSampleActivity extends Activity {
                 startActivity(new Intent(TitleSampleActivity.this, TitleCenterSampleActivity.class));
                 break;
             case R.id.activity_title_sample_b:
+                startActivity(new Intent(TitleSampleActivity.this, TitleAliquotSampleActivity.class));
                 break;
             case R.id.activity_title_sample_c:
+                startActivity(new Intent(TitleSampleActivity.this, TitleAliquotLineSampleActivity.class));
                 break;
         }
     }

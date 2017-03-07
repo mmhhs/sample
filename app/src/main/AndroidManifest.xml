@@ -67,11 +67,15 @@
         </activity>
         <activity
             android:name=".activity.PickerSampleActivity"
-            android:label="@string/title_activity_picker_sample" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".activity.DropSampleActivity"
-            android:label="@string/title_activity_drop_sample" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".activity.TitleSampleActivity"
@@ -79,11 +83,27 @@
         </activity>
         <activity
             android:name=".activity.VisitSampleActivity"
-            android:label="@string/title_activity_visit_sample" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".activity.TitleCenterSampleActivity"
-            android:label="@string/title_activity_title_center_sample" >
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".activity.TitleAliquotSampleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".activity.TitleAliquotLineSampleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
     </application>
 

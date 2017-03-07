@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class TitleCenterSampleActivity extends FragmentActivity {
+public class TitleAliquotLineSampleActivity extends FragmentActivity {
 
     @InjectView(R.id.activity_title_center_sample_titlePagerLayout)
     TitlePagerLayout activityTitleCenterSampleTitlePagerLayout;
@@ -55,7 +55,7 @@ public class TitleCenterSampleActivity extends FragmentActivity {
         activityTitleCenterSampleViewPager.setAdapter(mFragmentPagerAdapter);
         initFragment();
         setTitles();
-        activityTitleCenterSampleTitlePagerLayout.initData(TitlePagerLayout.TITLE_MODE.CENTER, titleItemList, activityTitleCenterSampleViewPager, screenFlag);
+        activityTitleCenterSampleTitlePagerLayout.initData(TitlePagerLayout.TITLE_MODE.WEIGHT_LINE, titleItemList, activityTitleCenterSampleViewPager, screenFlag);
         activityTitleCenterSampleTitlePagerLayout.setOnChangeListener(new IOnChangeListener() {
             @Override
             public void onChange(int position) {
@@ -66,9 +66,9 @@ public class TitleCenterSampleActivity extends FragmentActivity {
 
     private void setTitles() {
         titleItemList.clear();
-        TitleItem titleItem1 = new TitleItem("第一种", R.style.sample_style_text, R.drawable.sample_title_bg, 50, 80);
-        TitleItem titleItem2 = new TitleItem("第二种", R.style.sample_style_text, R.drawable.sample_title_bg, 50, 80);
-        TitleItem titleItem3 = new TitleItem("第三种", R.style.sample_style_text, R.drawable.sample_title_bg, 50, 80);
+        TitleItem titleItem1 = new TitleItem("第一种", R.style.sample_style_text, R.drawable.sample_title_bg);
+        TitleItem titleItem2 = new TitleItem("第二种", R.style.sample_style_text, R.drawable.sample_title_bg);
+        TitleItem titleItem3 = new TitleItem("第三种", R.style.sample_style_text, R.drawable.sample_title_bg);
         titleItemList.add(titleItem1);
         titleItemList.add(titleItem2);
         titleItemList.add(titleItem3);

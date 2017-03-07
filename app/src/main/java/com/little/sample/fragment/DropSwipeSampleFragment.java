@@ -43,6 +43,7 @@ public class DropSwipeSampleFragment extends Fragment {
     private List<VisitSampleDataEntity> list = new ArrayList<VisitSampleDataEntity>();
     int pageNumber = 1;
     int PAGER_COUNT = 15;
+    String tagStr = "VisitSampleActivity";//task唯一标识
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,12 @@ public class DropSwipeSampleFragment extends Fragment {
 
     public void init() {
         initUltimate();
-        refresh(true);
+        VisitSampleDataEntity dataEntity = new VisitSampleDataEntity();
+        for (int i=0;i<10;i++){
+            list.add(dataEntity);
+        }
+        adapter.notifyDataSetChanged();
+//        refresh(true);
     }
 
     @Override
@@ -117,13 +123,14 @@ public class DropSwipeSampleFragment extends Fragment {
     }
 
     void getList(final boolean showLoad) {
-        String url = "https://bfda-app.ifoton.com.cn/serviceProvider";
+        String url = "http://192.168.0.107:8080/serviceProvider/getBrandInfo.action";
         Map<String, Object> argMap = new HashMap<String, Object>();
         argMap.put("page", ""+pageNumber);
         argMap.put("pageSize", ""+PAGER_COUNT);
-        PageVisitTask pageVisitTask = new PageVisitTask(getActivity(),"",visitLinkContainer,visitLinkLoadingLayout,"",showLoad,onRetryListener,url,argMap,TaskConstant.POST);
-        pageVisitTask.setParseClass(VisitSampleResult.class);
-        pageVisitTask.setiOnResultListener(new IOnResultListener() {
+        argMap.put("brandType", "3");
+        PageVisitTask visitTask = new PageVisitTask(getActivity(),tagStr,visitLinkContainer,visitLinkLoadingLayout,"",showLoad,onRetryListener,url,argMap,TaskConstant.POST);
+        visitTask.setParseClass(VisitSampleResult.class);
+        visitTask.setiOnResultListener(new IOnResultListener() {
             @Override
             public void onSuccess(VisitTask task) {
                 if (task.getResultEntity() instanceof VisitSampleResult) {
@@ -147,7 +154,7 @@ public class DropSwipeSampleFragment extends Fragment {
                 }
             }
         });
-        pageVisitTask.execute();
+        visitTask.execute();
     }
 
     IOnRetryListener onRetryListener = new IOnRetryListener() {
