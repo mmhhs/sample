@@ -63,4 +63,5 @@ dependencies {
     compile project(':drop')
     compile project(':visit')
     compile project(':title')
+    compile project(':swipe')
 }

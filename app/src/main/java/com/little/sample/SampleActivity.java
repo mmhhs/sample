@@ -11,6 +11,7 @@ import com.little.sample.activity.DropSampleActivity;
 import com.little.sample.activity.PickerSampleActivity;
 import com.little.sample.activity.PictureSampleActivity;
 import com.little.sample.activity.PopupSampleActivity;
+import com.little.sample.activity.SwipeSampleActivity;
 import com.little.sample.activity.TitleSampleActivity;
 import com.little.sample.activity.VisitSampleActivity;
 
@@ -64,6 +65,7 @@ public class SampleActivity extends Activity {
                         startActivity(new Intent(SampleActivity.this, PictureSampleActivity.class));
                         break;
                     case 5:
+                        startActivity(new Intent(SampleActivity.this, SwipeSampleActivity.class));
                         break;
                     case 6:
                         startActivity(new Intent(SampleActivity.this, PickerSampleActivity.class));

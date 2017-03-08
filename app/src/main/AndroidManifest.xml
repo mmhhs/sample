@@ -105,6 +105,27 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name=".activity.SwipeSampleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/TransparentTheme">
+        </activity>
+        <activity
+            android:name=".activity.SwipeBackSampleActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/TransparentTheme">
+        </activity>
+        <activity
+            android:name=".activity.SwipeBackSampleFragmentActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/TransparentTheme">
+        </activity>
     </application>
 
 </manifest>
