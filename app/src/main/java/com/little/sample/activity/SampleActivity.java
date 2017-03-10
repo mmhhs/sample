@@ -1,4 +1,4 @@
-package com.little.sample;
+package com.little.sample.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,13 +7,7 @@ import android.widget.TextView;
 
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnItemListener;
-import com.little.sample.activity.DropSampleActivity;
-import com.little.sample.activity.PickerSampleActivity;
-import com.little.sample.activity.PictureSampleActivity;
-import com.little.sample.activity.PopupSampleActivity;
-import com.little.sample.activity.SwipeSampleActivity;
-import com.little.sample.activity.TitleSampleActivity;
-import com.little.sample.activity.VisitSampleActivity;
+import com.little.sample.R;
 
 import java.util.ArrayList;
 import java.util.List;
