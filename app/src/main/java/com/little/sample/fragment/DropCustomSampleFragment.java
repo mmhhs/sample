@@ -101,7 +101,7 @@ public class DropCustomSampleFragment extends Fragment {
         animationRecyclerView.setAdapter(adapter);
         animationRecyclerView.enableLoadmore(true);
         animationRecyclerView.enableRefresh(true);
-        animationRecyclerView.setEnd(true);
+        animationRecyclerView.setEnd(false);
 //        fragmentDropSwipeRecyclerview.addItemDividerDecoration(getActivity());
         animationRecyclerView.setOnRefreshListener(new IOnRefreshListener() {
             @Override
@@ -122,7 +122,7 @@ public class DropCustomSampleFragment extends Fragment {
     }
 
     void getList(final boolean showLoad) {
-        String url = "http://192.168.0.107:8080/serviceProvider/getBrandInfo.action";
+        String url = "http://10.100.2.91:8012/serviceProvider/getBrandInfo.action";
         Map<String, Object> argMap = new HashMap<String, Object>();
         argMap.put("page", ""+pageNumber);
         argMap.put("pageSize", ""+PAGER_COUNT);

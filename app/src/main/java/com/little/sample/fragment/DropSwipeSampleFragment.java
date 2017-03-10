@@ -102,7 +102,7 @@ public class DropSwipeSampleFragment extends Fragment {
         fragmentDropSwipeRecyclerview.setAdapter(adapter);
         fragmentDropSwipeRecyclerview.enableLoadmore(true);
         fragmentDropSwipeRecyclerview.enableSwipeRefresh(true);
-        fragmentDropSwipeRecyclerview.setEnd(true);
+        fragmentDropSwipeRecyclerview.setEnd(false);
 //        fragmentDropSwipeRecyclerview.addItemDividerDecoration(getActivity());
         fragmentDropSwipeRecyclerview.setOnRefreshListener(new IOnRefreshListener() {
             @Override
@@ -123,7 +123,7 @@ public class DropSwipeSampleFragment extends Fragment {
     }
 
     void getList(final boolean showLoad) {
-        String url = "http://192.168.0.107:8080/serviceProvider/getBrandInfo.action";
+        String url = "http://10.100.2.91:8012/serviceProvider/getBrandInfo.action";
         Map<String, Object> argMap = new HashMap<String, Object>();
         argMap.put("page", ""+pageNumber);
         argMap.put("pageSize", ""+PAGER_COUNT);

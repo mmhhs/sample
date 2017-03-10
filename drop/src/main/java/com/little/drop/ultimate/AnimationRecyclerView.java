@@ -242,6 +242,22 @@ public class AnimationRecyclerView extends FrameLayout{
     }
 
     /**
+     * 设置刷新模式
+     * @param isSecond 是否使用第二种模式：动画；箭头
+     */
+    public void setRefreshMode(boolean isSecond){
+        refreshLayout.setIsSecond(isSecond);
+    }
+
+    /**
+     * 设置显示访问结果
+     * @param showResultTip
+     */
+    public void setShowResultTip(boolean showResultTip){
+        refreshLayout.setShowResultTip(showResultTip);
+    }
+
+    /**
      * 设置刷新加载监听
      * @param onRefreshListener
      */
