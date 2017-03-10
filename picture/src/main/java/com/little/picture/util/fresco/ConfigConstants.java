@@ -55,8 +55,8 @@ public class ConfigConstants {
     public static ImagePipelineConfig getImagePipelineConfig(Context context) {
         if (sImagePipelineConfig == null) {
             //初始化存储图片路径
-            IMAGE_PIPELINE_SMALL_CACHE_DIR = context.getExternalCacheDir()+"/cache/fresco/";
-            IMAGE_PIPELINE_CACHE_DIR = context.getExternalCacheDir()+"/cache/fresco/";
+            IMAGE_PIPELINE_SMALL_CACHE_DIR = context.getExternalFilesDir("")+"/cache/fresco/";
+            IMAGE_PIPELINE_CACHE_DIR = context.getExternalFilesDir("")+"/cache/fresco/";
             sImagePipelineConfig = configureCaches(context);
         }
         return sImagePipelineConfig;

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Sample</string>
     <string name="action_settings">Settings</string>
+    <!-- keep alive start -->
+    <string name="account">Sample</string>
+    <string name="account_auth_provider">com.little.sample.provider</string>
+    <string name="account_auth_type">com.little.sample</string>
+    <!-- keep alive end -->
 
 </resources>
