@@ -46,6 +46,9 @@ public class BaseApplication extends MultiDexApplication {
         }
     }
 
+    /**
+     * 主进程执行初始化
+     */
     private void initAppForMainProcess(){
         FrescoUtils.init(this);
     }
@@ -72,6 +75,9 @@ public class BaseApplication extends MultiDexApplication {
         return baseApplication;
     }
 
+    /**
+     * 启动保活service
+     */
     public void startKeepLiveService(){
         try {
             if (BaseConstant.IS_KEEP_LIVE){
@@ -86,6 +92,9 @@ public class BaseApplication extends MultiDexApplication {
         }
     }
 
+    /**
+     * 启动一像素activity
+     */
     public void startKeepLiveActivity(){
         try {
             Intent intent = new Intent(this, KeepLiveActivity.class);

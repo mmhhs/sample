@@ -19,7 +19,7 @@ public class BaseConstant {
     public static final int PAGER_SIZE =  16;//分页加载时，每页返回数量
 
     public static void init(Context context){
-        IMAGE_SAVE_PATH = context.getExternalCacheDir() + "/cache/image/";
+        IMAGE_SAVE_PATH = context.getExternalFilesDir("") + "/cache/image/";
         File saveFile = new File(IMAGE_SAVE_PATH);
         if (!saveFile.exists()){
             saveFile.mkdirs();
