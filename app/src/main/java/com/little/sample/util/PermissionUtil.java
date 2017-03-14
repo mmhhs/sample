@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnDialogListener;
-import com.little.sample.base.BaseFragmentActivity;
+import com.little.sample.activity.HomeActivity;
 import com.little.sample.manager.ScreenManager;
 
 import java.lang.ref.WeakReference;
@@ -49,7 +49,7 @@ public class PermissionUtil {
      *
      * @param activity
      */
-    public static void doACacheNeedsPermissionWithCheck(BaseFragmentActivity activity) {
+    public static void doACacheNeedsPermissionWithCheck(HomeActivity activity) {
         // 如果拥有该权限，那么调用用户注解为：@NeedsPermission的方法
         if (PermissionUtils.hasSelfPermissions(activity, PERMISSION_DOACACHENEEDSPERMISSION)) {
             activity.doACacheNeedsPermission();
@@ -70,7 +70,7 @@ public class PermissionUtil {
      * @param requestCode  权限编码
      * @param grantResults
      */
-    public static void onRequestPermissionsResult(BaseFragmentActivity activity, int requestCode, int[] grantResults) {
+    public static void onRequestPermissionsResult(HomeActivity activity, int requestCode, int[] grantResults) {
         switch (requestCode) {
             case CHECK_LOCTION_PERMISSION_CODE:
                 if (PermissionUtils.getTargetSdkVersion(activity) < 23 && !PermissionUtils.hasSelfPermissions(activity, PERMISSION_DOACACHENEEDSPERMISSION)) {
@@ -93,9 +93,9 @@ public class PermissionUtil {
     }
 
     private static final class DoACacheNeedsPermissionPermissionRequest implements PermissionRequest {
-        private final WeakReference<BaseFragmentActivity> weakActivity;
+        private final WeakReference<HomeActivity> weakActivity;
 
-        private DoACacheNeedsPermissionPermissionRequest(BaseFragmentActivity activity) {
+        private DoACacheNeedsPermissionPermissionRequest(HomeActivity activity) {
             this.weakActivity = new WeakReference<>(activity);
         }
 
@@ -109,7 +109,7 @@ public class PermissionUtil {
 
         @Override
         public void cancel() {
-            BaseFragmentActivity activity = weakActivity.get();
+            HomeActivity activity = weakActivity.get();
             if (activity == null)
                 return;
             activity.ACacheOnPermissionDenied();

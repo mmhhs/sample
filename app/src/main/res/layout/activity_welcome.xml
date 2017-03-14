@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/activity_welcome_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.little.picture.util.fresco.InstrumentedDraweeView
+                android:id="@+id/activity_welcome_draweeView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:actualImageScaleType="centerCrop"
+                app:fadeDuration="30"
+                app:failureImage="@color/title_color"
+                app:failureImageScaleType="centerCrop"
+                app:placeholderImage="@color/title_color"
+                app:placeholderImageScaleType="centerCrop"
+                app:retryImage="@color/title_color"
+                app:retryImageScaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/activity_welcome_progress_bg"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="right"
+                android:layout_margin="15dp"
+                android:padding="2dp"
+                android:src="@drawable/circle_transparent"
+                android:visibility="gone" />
+
+            <com.little.sample.view.RoundProgressBar
+                android:id="@+id/activity_welcome_progress"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="right"
+                android:layout_margin="15dp"
+                android:visibility="gone"
+                app:roundMax="360"
+                app:roundColor="@color/grey"
+                app:roundProgressColor="@color/red"
+                app:roundWidth="2dp"
+                app:roundTextColor="@color/white"
+                app:roundTextSize="8sp" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/activity_welcome_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+    </RelativeLayout>
+
+</LinearLayout>

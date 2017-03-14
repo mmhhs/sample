@@ -22,6 +22,7 @@ import com.little.sample.base.BaseFragmentActivity;
 import com.little.sample.fragment.DropArrowSampleFragment;
 import com.little.sample.fragment.DropCustomSampleFragment;
 import com.little.sample.fragment.DropSwipeSampleFragment;
+import com.little.sample.listener.IOnPermissionListener;
 import com.little.sample.util.PermissionUtil;
 
 import butterknife.InjectView;
@@ -33,7 +34,7 @@ import permissions.dispatcher.OnShowRationale;
 import permissions.dispatcher.PermissionRequest;
 
 
-public class HomeActivity extends BaseFragmentActivity {
+public class HomeActivity extends BaseFragmentActivity implements IOnPermissionListener {
     @InjectView(android.R.id.tabhost)
     public FragmentTabHost mTabHost;
     @InjectView(R.id.activity_home_tab_text0)
@@ -52,7 +53,7 @@ public class HomeActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
-            finish();
+            finishSelf();
             return;
         }
         setTaskTag(getClass().getSimpleName());
@@ -86,7 +87,7 @@ public class HomeActivity extends BaseFragmentActivity {
 			/* 将Tab按钮添加进Tab选项卡中 */
             mTabHost.addTab(tabSpec, fragments[i], null);
         }
-        mTabHost.setCurrentTab(0);
+        setCurrentScreen(0);
         registerBroadcast();
 //        VersionCheckUtil versionCheckUtils = new VersionCheckUtil(this,naviText0,taskTag);
 //        versionCheckUtils.checkVersion(false);

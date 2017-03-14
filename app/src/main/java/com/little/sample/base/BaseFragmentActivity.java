@@ -4,7 +4,6 @@ package com.little.sample.base;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import com.little.sample.listener.IOnPermissionListener;
 import com.little.sample.manager.MFragmentsManager;
 import com.little.sample.manager.ScreenManager;
 import com.little.sample.util.TranslucentUtil;
@@ -13,7 +12,7 @@ import com.little.visit.task.VisitTask;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragmentActivity extends FragmentActivity implements IOnPermissionListener {
+public abstract class BaseFragmentActivity extends FragmentActivity {
 	public String taskTag = "BaseFragmentActivity";//当前BaseFragmentActivity的线程标识
 	protected ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
 	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
