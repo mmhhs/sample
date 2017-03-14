@@ -15,12 +15,12 @@ import com.little.sample.model.VisitSampleDataEntity;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 
 public class DropSampleAdapter extends UltimateViewAdapter {
     public Context context;
     public List<VisitSampleDataEntity> list;
-
 
 
     public DropSampleAdapter(Context context, List<VisitSampleDataEntity> list) {
@@ -36,7 +36,7 @@ public class DropSampleAdapter extends UltimateViewAdapter {
         View v = null;
         RecyclerView.ViewHolder holer = null;
         v = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.activity_sample, null);
+                R.layout.adapter_drop_sample, null);
         v.setLayoutParams(layoutParams);
         holer = new MyViewHolder(v);
         return holer;
@@ -56,7 +56,7 @@ public class DropSampleAdapter extends UltimateViewAdapter {
                     position < list.size()) && (customHeaderView != null ? position > 0 : true)) {
                 VisitSampleDataEntity visitSampleDataEntity = list.get(position);
                 MyViewHolder viewHolder = (MyViewHolder) holder;
-
+//                viewHolder.adapterDropSampleLayout.s
 
             }
         } catch (Exception e) {
@@ -68,11 +68,13 @@ public class DropSampleAdapter extends UltimateViewAdapter {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-
+        @InjectView(R.id.adapter_drop_sample_layout)
+        LinearLayout adapterDropSampleLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
     }
+
 }

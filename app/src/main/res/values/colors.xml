@@ -3,6 +3,15 @@
     <!-- TitlePagerLayout -->
     <color name="sample_text_on">#666666</color>
     <color name="sample_text_off">#2996ff</color>
-    <color name="clear">#00000000</color>
+    <!-- 标题颜色 -->
     <color name="title_color">#2996ff</color>
+    <!-- 底部导航线条颜色 -->
+    <color name="navi_bottom_line">#eeeeee</color>
+    <!-- 背景颜色 -->
+    <color name="bg_grey">#fafafa</color>
+    <color name="bg_white">#ffffff</color>
+    <!-- 基本颜色 -->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="clear">#00000000</color>
 </resources>

@@ -18,6 +18,15 @@ public class BaseConstant {
     public static final int PAGER_START =  1;//分页加载时，默认开始页数
     public static final int PAGER_SIZE =  16;//分页加载时，每页返回数量
 
+    //界面间传值key
+    public static final String INTENT_ID								    =  "INTENT_ID";
+    public static final String INTENT_TYPE								=  "INTENT_TYPE";
+    public static final String INTENT_CONTENT								=  "INTENT_CONTENT";
+    public static final String INTENT_ARG								    =  "INTENT_ARG";
+
+    //广播标识
+    public static final String ACTION_HOME								    =  "ACTION_HOME";
+
     public static void init(Context context){
         IMAGE_SAVE_PATH = context.getExternalFilesDir("") + "/cache/image/";
         File saveFile = new File(IMAGE_SAVE_PATH);
@@ -27,6 +36,7 @@ public class BaseConstant {
         LogUtil.setIsDebug(IS_DEBUG);//设置打印日志开关
     }
 
+    //访问路径
     /**
      * 访问主域名
      */

@@ -6,5 +6,6 @@
     <string name="account_auth_provider">com.little.sample.provider</string>
     <string name="account_auth_type">com.little.sample</string>
     <!-- keep alive end -->
+    <string name="quit">再按一次退出应用</string>
 
 </resources>

@@ -49,4 +49,24 @@
         <item name="android:windowNoDisplay">false</item>
     </style>
 
+    <!-- background style -->
+    <style name="base_background_grey">
+        <item name="android:background">@color/bg_grey</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:clipToPadding">true</item>
+    </style>
+    <style name="base_background_white">
+        <item name="android:background">@color/bg_white</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:clipToPadding">true</item>
+    </style>
+    <!-- home style -->
+    <style name="activity_home_tab_text">
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/sample_text</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

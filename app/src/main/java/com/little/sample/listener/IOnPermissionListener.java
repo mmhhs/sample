@@ -1,7 +1,7 @@
 package com.little.sample.listener;
 
 
-import android.webkit.PermissionRequest;
+import permissions.dispatcher.PermissionRequest;
 
 public interface IOnPermissionListener {
     /**
