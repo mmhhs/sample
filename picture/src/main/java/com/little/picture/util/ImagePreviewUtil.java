@@ -66,6 +66,7 @@ public class ImagePreviewUtil {
     private int maxSize = 9;//最多能选择的图片数
     private IOnCheckListener onCheckListener;
     private Activity activity;
+    private boolean isOriginal = false;//是否使用原图
 
     /**
      * 构造器
@@ -257,7 +258,8 @@ public class ImagePreviewUtil {
         TextView previewText = (TextView) view.findViewById(R.id.picture_ui_footer_preview);
         TextView folderText = (TextView) view.findViewById(R.id.picture_ui_footer_folder);
         final TextView indexText = (TextView) view.findViewById(R.id.picture_ui_title_index);
-        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.picture_ui_footer_choose);
+        final CheckBox chooseCheckBox = (CheckBox) view.findViewById(R.id.picture_ui_footer_choose);
+        final CheckBox originalCheckBox = (CheckBox) view.findViewById(R.id.picture_ui_footer_original);
         final ClipImageLayout clipImageLayout = (ClipImageLayout) view.findViewById(R.id.picture_popup_preview_clipImageLayout);
 
         clipImageLayout.setImageUri(previewList.get(position));
@@ -293,13 +295,15 @@ public class ImagePreviewUtil {
             case PREVIEW_FOLDER:
                 previewText.setVisibility(View.GONE);
                 folderText.setVisibility(View.GONE);
-                checkBox.setVisibility(View.VISIBLE);
+                chooseCheckBox.setVisibility(View.VISIBLE);
+                originalCheckBox.setVisibility(View.VISIBLE);
                 setPreviewDoneText(doneText);
                 break;
             case PREVIEW_CHOOSE:
                 previewText.setVisibility(View.GONE);
                 folderText.setVisibility(View.GONE);
-                checkBox.setVisibility(View.VISIBLE);
+                chooseCheckBox.setVisibility(View.VISIBLE);
+                originalCheckBox.setVisibility(View.VISIBLE);
                 setPreviewDoneText(doneText);
                 break;
             case PREVIEW_TAKE:
@@ -322,9 +326,14 @@ public class ImagePreviewUtil {
             }
             previewPath = previewList.get(position);
             if (isSelected(previewList.get(position))){
-                checkBox.setChecked(true);
+                chooseCheckBox.setChecked(true);
             }else {
-                checkBox.setChecked(false);
+                chooseCheckBox.setChecked(false);
+            }
+            if (isOriginal){
+                originalCheckBox.setChecked(true);
+            }else {
+                originalCheckBox.setChecked(false);
             }
             viewPager.setCurrentItem(position);
         }
@@ -344,9 +353,9 @@ public class ImagePreviewUtil {
                 }
                 previewPath = previewList.get(position);
                 if (isSelected(previewList.get(position))){
-                    checkBox.setChecked(true);
+                    chooseCheckBox.setChecked(true);
                 }else {
-                    checkBox.setChecked(false);
+                    chooseCheckBox.setChecked(false);
                 }
             }
 
@@ -355,18 +364,30 @@ public class ImagePreviewUtil {
 
             }
         });
-        checkBox.setOnClickListener(new View.OnClickListener() {
+        chooseCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSelected(previewPath)){
-                    setSelected(previewPath,false,doneText);
-                }else {
-                    if (chooseImageList.size()<maxSize){
-                        setSelected(previewPath,true,doneText);
-                    }else {
+                if (isSelected(previewPath)) {
+                    setSelected(previewPath, false, doneText);
+                } else {
+                    if (chooseImageList.size() < maxSize) {
+                        setSelected(previewPath, true, doneText);
+                    } else {
                         ToastUtil.addToast(context, "" + context.getString(R.string.picture_max) + maxSize);
-                        checkBox.setChecked(false);
+                        chooseCheckBox.setChecked(false);
                     }
+                }
+            }
+        });
+        originalCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isOriginal){
+                    isOriginal = false;
+                    originalCheckBox.setChecked(false);
+                }else {
+                    isOriginal = true;
+                    originalCheckBox.setChecked(true);
                 }
             }
         });
@@ -414,7 +435,16 @@ public class ImagePreviewUtil {
                         preList.add(previewList.get(0));
                         sendPicturePickBroadcast(preList);
                     }else {
-                        sendPicturePickBroadcast(chooseImageList);
+                        if (!isOriginal){
+                            ArrayList<String> imageList = new ArrayList<String>();
+                            for (String path : chooseImageList){
+                                String imagePath = ImageUtil.saveScaleImage(path,ImageChooseUtil.getImagePathFolder(),ImageChooseUtil.SCALE_WIDTH,ImageChooseUtil.SCALE_HEIGHT,100);
+                                imageList.add(imagePath);
+                            }
+                            sendPicturePickBroadcast(imageList);
+                        }else {
+                            sendPicturePickBroadcast(chooseImageList);
+                        }
                     }
                     activity.finish();
                 }catch (Exception e){
@@ -634,5 +664,13 @@ public class ImagePreviewUtil {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public boolean isOriginal() {
+        return isOriginal;
+    }
+
+    public void setIsOriginal(boolean isOriginal) {
+        this.isOriginal = isOriginal;
     }
 }
