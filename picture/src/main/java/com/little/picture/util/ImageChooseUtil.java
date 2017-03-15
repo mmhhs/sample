@@ -50,7 +50,7 @@ public class ImageChooseUtil implements Serializable{
 	public ImageChooseUtil(Activity activity){
 		this.activity = activity;
 		context = activity;
-		imagePathFolder = context.getExternalCacheDir()+"/cache/image/";
+		imagePathFolder = context.getExternalFilesDir("")+"/cache/image/";
 		File dir = new File(imagePathFolder);
 		if(!dir.exists()){
 			dir.mkdirs();
@@ -65,7 +65,7 @@ public class ImageChooseUtil implements Serializable{
 	public ImageChooseUtil(Fragment fragment){
 		this.fragment = fragment;
 		context = fragment.getActivity();
-		imagePathFolder = context.getExternalCacheDir()+"/cache/image/";
+		imagePathFolder = context.getExternalFilesDir("")+"/cache/image/";
 		File dir = new File(imagePathFolder);
 		if(!dir.exists()){
 			dir.mkdirs();

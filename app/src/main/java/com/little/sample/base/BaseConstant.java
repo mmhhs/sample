@@ -13,6 +13,7 @@ public class BaseConstant {
     public static final boolean IS_DEBUG = true;//调试模式
     public static final boolean IS_KEEP_LIVE = true;//开启保活
     public static String IMAGE_SAVE_PATH = "";//图片存储路径
+    public static String APK_PATH = "";//APK存储路径
     public static final int SCALE_WIDTH = 360;//压缩图片的目标宽度
     public static final int SCALE_HEIGHT = 640;//压缩图片的目标高度
     public static final int PAGER_START =  1;//分页加载时，默认开始页数
@@ -29,6 +30,7 @@ public class BaseConstant {
 
     public static void init(Context context){
         IMAGE_SAVE_PATH = context.getExternalFilesDir("") + "/cache/image/";
+        APK_PATH = context.getExternalFilesDir("") + "/apk/app.apk";
         File saveFile = new File(IMAGE_SAVE_PATH);
         if (!saveFile.exists()){
             saveFile.mkdirs();

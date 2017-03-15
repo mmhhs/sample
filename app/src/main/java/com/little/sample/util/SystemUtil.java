@@ -2,6 +2,7 @@ package com.little.sample.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.webkit.DownloadListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -18,11 +20,69 @@ import java.lang.reflect.Method;
  * Created by mmh on 2017/3/14.
  */
 public class SystemUtil {
+
     /**
-     * 获取系统版本
+     * 安装
+     *
+     * @param context 接收外部传进来的context
+     */
+    public static void install(Context context, String storePath) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(new File(storePath)),
+                    "application/vnd.android.package-archive");
+            context.startActivity(intent);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获取本地apk文件的版本号
+     *
+     * @param context
+     * @param storePath
      * @return
      */
-    public static int getSystemVersion(){
+    public static int getApkVersionCode(Context context, String storePath) {
+        int versionCode = 1;
+        PackageManager pm = context.getPackageManager();
+        PackageInfo info = pm.getPackageArchiveInfo(storePath, PackageManager.GET_ACTIVITIES);
+        ApplicationInfo appInfo = null;
+        if (info != null) {
+            appInfo = info.applicationInfo;
+            versionCode = info.versionCode;
+        }
+        return versionCode;
+    }
+
+    /**
+     * 获取本机号码
+     *
+     * @param context
+     * @return
+     */
+    public static String getPhoneNumber(Context context) {
+        String result = "";
+        try {
+            TelephonyManager mTelephonyMgr;
+            mTelephonyMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            result = mTelephonyMgr.getLine1Number();
+            if (result.startsWith("+86")) {
+                result = result.replace("+86", "");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 获取系统版本
+     *
+     * @return
+     */
+    public static int getSystemVersion() {
         int sysVersion = Build.VERSION.SDK_INT;
         return sysVersion;
     }
@@ -30,18 +90,20 @@ public class SystemUtil {
 
     /**
      * 获取设备Id和手机品牌以“_”分隔
+     *
      * @param context
      * @return
      */
-    public static String getDeviceId(Context context){
+    public static String getDeviceId(Context context) {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        String result = ""+tm.getDeviceId()+"_"+ Build.BRAND;
+        String result = "" + tm.getDeviceId() + "_" + Build.BRAND;
         return result;
     }
 
 
     /**
      * 获取版本号
+     *
      * @return 当前应用的版本号
      */
     public static int getVersionCode(Context context) {
@@ -58,6 +120,7 @@ public class SystemUtil {
 
     /**
      * 获取版本名称
+     *
      * @return 当前应用的版本名称
      */
     public static String getVersionName(Context context) {
@@ -74,6 +137,7 @@ public class SystemUtil {
 
     /**
      * webView基本设置
+     *
      * @param webView
      */
     public static void setBaseWebSetting(WebView webView) {
