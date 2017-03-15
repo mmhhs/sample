@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    style="@style/background_white"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@color/title_color"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:id="@+id/activity_act_web_title"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/visit_link_container">
+            <ProgressBar
+                android:id="@+id/visit_link_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="4dp"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_bar_states" >
+            </ProgressBar>
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/activity_act_web_webView" />
+        </LinearLayout>
+
+        <include layout="@layout/visit_link_loading" />
+    </FrameLayout>
+
+</LinearLayout>

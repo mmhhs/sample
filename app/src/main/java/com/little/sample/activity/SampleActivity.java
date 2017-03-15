@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnItemListener;
 import com.little.sample.R;
+import com.little.sample.base.BaseConstant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ public class SampleActivity extends Activity {
         componentList.add("选图");
         componentList.add("滑动返回");
         componentList.add("时间选择");
+        componentList.add("网页");
     }
 
 
@@ -63,6 +65,12 @@ public class SampleActivity extends Activity {
                         break;
                     case 6:
                         startActivity(new Intent(SampleActivity.this, PickerSampleActivity.class));
+                        break;
+                    case 7:
+                        Intent intent = new Intent(SampleActivity.this, ActWebActivity.class);
+                        intent.putExtra(BaseConstant.INTENT_TYPE,"百度");
+                        intent.putExtra(BaseConstant.INTENT_CONTENT,"http://www.baidu.com");
+                        startActivity(intent);
                         break;
                 }
             }

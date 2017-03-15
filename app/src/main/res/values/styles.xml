@@ -50,12 +50,12 @@
     </style>
 
     <!-- background style -->
-    <style name="base_background_grey">
+    <style name="background_grey">
         <item name="android:background">@color/bg_grey</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:clipToPadding">true</item>
     </style>
-    <style name="base_background_white">
+    <style name="background_white">
         <item name="android:background">@color/bg_white</item>
         <item name="android:fitsSystemWindows">true</item>
         <item name="android:clipToPadding">true</item>

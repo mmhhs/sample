@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.little.drop.ultimate.UltimateViewAdapter;
 import com.little.sample.R;
+import com.little.sample.listener.IOnItemClickListener;
 import com.little.sample.model.VisitSampleDataEntity;
 
 import java.util.List;
@@ -19,9 +20,9 @@ import butterknife.InjectView;
 
 
 public class DropSampleAdapter extends UltimateViewAdapter {
-    public Context context;
-    public List<VisitSampleDataEntity> list;
-
+    private Context context;
+    private List<VisitSampleDataEntity> list;
+    private IOnItemClickListener onItemClickListener;
 
     public DropSampleAdapter(Context context, List<VisitSampleDataEntity> list) {
         this.context = context;
@@ -56,7 +57,14 @@ public class DropSampleAdapter extends UltimateViewAdapter {
                     position < list.size()) && (customHeaderView != null ? position > 0 : true)) {
                 VisitSampleDataEntity visitSampleDataEntity = list.get(position);
                 MyViewHolder viewHolder = (MyViewHolder) holder;
-//                viewHolder.adapterDropSampleLayout.s
+                viewHolder.adapterDropSampleLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (onItemClickListener!=null){
+                            onItemClickListener.onItemClick(position);
+                        }
+                    }
+                });
 
             }
         } catch (Exception e) {
@@ -77,4 +85,7 @@ public class DropSampleAdapter extends UltimateViewAdapter {
         }
     }
 
+    public void setOnItemClickListener(IOnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 }

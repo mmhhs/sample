@@ -80,12 +80,12 @@ public class DropSwipeSampleFragment extends Fragment {
 
     public void init() {
         initUltimate();
-        VisitSampleDataEntity dataEntity = new VisitSampleDataEntity();
-        for (int i=0;i<10;i++){
-            list.add(dataEntity);
-        }
-        adapter.notifyDataSetChanged();
-//        refresh(true);
+//        VisitSampleDataEntity dataEntity = new VisitSampleDataEntity();
+//        for (int i=0;i<10;i++){
+//            list.add(dataEntity);
+//        }
+//        adapter.notifyDataSetChanged();
+        refresh(true);
     }
 
     @Override
@@ -115,6 +115,7 @@ public class DropSwipeSampleFragment extends Fragment {
                 getList(false);
             }
         });
+
     }
 
     void refresh(boolean showLoad) {

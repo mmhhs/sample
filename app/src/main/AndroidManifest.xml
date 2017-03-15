@@ -27,6 +27,12 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
+            android:name=".activity.ActWebActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
             android:name=".activity.SampleActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"

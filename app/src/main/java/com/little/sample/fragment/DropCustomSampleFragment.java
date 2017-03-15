@@ -1,5 +1,6 @@
 package com.little.sample.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +12,9 @@ import android.widget.LinearLayout;
 import com.little.drop.listener.IOnRefreshListener;
 import com.little.drop.ultimate.AnimationRecyclerView;
 import com.little.sample.R;
+import com.little.sample.activity.SampleActivity;
 import com.little.sample.adapter.DropSampleAdapter;
+import com.little.sample.listener.IOnItemClickListener;
 import com.little.sample.model.VisitSampleDataEntity;
 import com.little.sample.model.VisitSampleResult;
 import com.little.visit.TaskConstant;
@@ -112,6 +115,12 @@ public class DropCustomSampleFragment extends Fragment {
             @Override
             public void onLoadMore() {
                 getList(false);
+            }
+        });
+        adapter.setOnItemClickListener(new IOnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                startActivity(new Intent(getActivity(), SampleActivity.class));
             }
         });
     }
