@@ -188,7 +188,7 @@ public class PageView extends LinearLayout {
 		public ViewPager viewPager;
 		@InjectView(R.id.view_page_pageIndicatorView)
 		public PageIndicatorView pageIndicatorView;
-		@InjectView(R.id.base_view_page_layout)
+		@InjectView(R.id.view_page_layout)
 		public FrameLayout frameLayout;
 
 		public PageViewHolder(View itemView) {

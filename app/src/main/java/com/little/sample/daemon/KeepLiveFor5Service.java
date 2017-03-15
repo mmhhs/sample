@@ -29,9 +29,13 @@ public class KeepLiveFor5Service extends JobService {
         LogUtil.e("--------------KeepLiveFor5Service onStartCommand--------------");
         mKeepLiveService = this;
         KeepLiveManager.getInstance().setForeground(this);
-        startService(new Intent(this, KeepInnerService.class));
         KeepLiveManager.getInstance().addAccount();
         KeepLiveManager.getInstance().startJobScheduler();
+        try {
+            startService(new Intent(this, KeepInnerService.class));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return Service.START_STICKY;
     }
 
@@ -72,17 +76,21 @@ public class KeepLiveFor5Service extends JobService {
     }
 
     private void registerBroadcast(){
-        if (keepLiveReceiver == null){
-            keepLiveReceiver = new KeepLiveReceiver();
-            IntentFilter recevierFilter=new IntentFilter();
-            recevierFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
-            recevierFilter.addAction(Intent.ACTION_MEDIA_MOUNTED);
-            recevierFilter.addAction(Intent.ACTION_POWER_CONNECTED);
-            recevierFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
-            recevierFilter.addAction(Intent.ACTION_USER_PRESENT);
-            recevierFilter.addAction(Intent.ACTION_SCREEN_ON);
-            recevierFilter.addAction(Intent.ACTION_SCREEN_OFF);
-            registerReceiver(keepLiveReceiver, recevierFilter);
+        try {
+            if (keepLiveReceiver == null){
+                keepLiveReceiver = new KeepLiveReceiver();
+                IntentFilter receiverFilter=new IntentFilter();
+                receiverFilter.addAction(Intent.ACTION_BOOT_COMPLETED);
+                receiverFilter.addAction(Intent.ACTION_MEDIA_MOUNTED);
+                receiverFilter.addAction(Intent.ACTION_POWER_CONNECTED);
+                receiverFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+                receiverFilter.addAction(Intent.ACTION_USER_PRESENT);
+                receiverFilter.addAction(Intent.ACTION_SCREEN_ON);
+                receiverFilter.addAction(Intent.ACTION_SCREEN_OFF);
+                registerReceiver(keepLiveReceiver, receiverFilter);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
