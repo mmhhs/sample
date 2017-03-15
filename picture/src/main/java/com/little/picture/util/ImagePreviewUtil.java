@@ -27,6 +27,7 @@ import com.little.picture.adapter.PictureGridAdapter;
 import com.little.picture.adapter.PicturePreviewAdapter;
 import com.little.picture.listener.IOnCheckListener;
 import com.little.picture.listener.IOnDeleteListener;
+import com.little.picture.listener.IOnGestureListener;
 import com.little.picture.listener.IOnItemClickListener;
 import com.little.picture.model.ImageEntity;
 import com.little.picture.view.ClipImageLayout;
@@ -100,9 +101,9 @@ public class ImagePreviewUtil {
         final LinearLayout deleteLayout = (LinearLayout) view.findViewById(R.id.picture_ui_title_delete_layout);
         final TextView indexText = (TextView) view.findViewById(R.id.picture_ui_title_index);
         picturePreviewAdapter = new PicturePreviewAdapter(context, imageList);
-        picturePreviewAdapter.setOnItemClickListener(new IOnItemClickListener() {
+        picturePreviewAdapter.setOnGestureListener(new IOnGestureListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onClick() {
                 if (showPreviewTitle) {
                     titleLayout.setVisibility(View.GONE);
                     showPreviewTitle = false;
@@ -110,6 +111,16 @@ public class ImagePreviewUtil {
                     titleLayout.setVisibility(View.VISIBLE);
                     showPreviewTitle = true;
                 }
+            }
+
+            @Override
+            public void onDoubleClick() {
+
+            }
+
+            @Override
+            public void onLongPress() {
+
             }
         });
         viewPager.setAdapter(picturePreviewAdapter);
@@ -251,9 +262,9 @@ public class ImagePreviewUtil {
 
         clipImageLayout.setImageUri(previewList.get(position));
         picturePreviewAdapter = new PicturePreviewAdapter(context,previewList);
-        picturePreviewAdapter.setOnItemClickListener(new IOnItemClickListener() {
+        picturePreviewAdapter.setOnGestureListener(new IOnGestureListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onClick() {
                 if (showPreviewTitle) {
                     titleLayout.setVisibility(View.GONE);
                     footerLayout.setVisibility(View.GONE);
@@ -263,6 +274,16 @@ public class ImagePreviewUtil {
                     footerLayout.setVisibility(View.VISIBLE);
                     showPreviewTitle = true;
                 }
+            }
+
+            @Override
+            public void onDoubleClick() {
+
+            }
+
+            @Override
+            public void onLongPress() {
+
             }
         });
         viewPager.setAdapter(picturePreviewAdapter);
