@@ -7,6 +7,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:persistent="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activity.WelcomeActivity"
@@ -123,7 +124,7 @@
 
         <!-- 保活策略 -->
         <!--android:process=":live"-->
-        <activity android:name=".daemon.KeepLiveActivity"
+        <activity android:name="com.little.sample.daemon.KeepLiveActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"
             android:configChanges="orientation|keyboardHidden|screenSize|navigation|keyboard"
@@ -133,18 +134,15 @@
             android:launchMode="singleInstance"
             android:theme="@style/LiveActivityStyle"
             />
-        <service android:name=".daemon.KeepLiveService" android:permission="android.permission.BIND_JOB_SERVICE"/>
-        <service android:name=".daemon.KeepInnerService" android:permission="android.permission.BIND_JOB_SERVICE"/>
-        <service android:name=".daemon.KeepLiveFor5Service" android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <!-- 同步账户 -->
         <provider
-            android:name=".daemon.KeepLiveAccountProvider"
+            android:name="com.little.sample.daemon.KeepLiveAccountProvider"
             android:authorities="@string/account_auth_provider"
             android:exported="false"
             android:syncable="true"/>
         <service
-            android:name=".daemon.KeepLiveSyncService"
+            android:name="com.little.sample.daemon.KeepLiveSyncService"
             android:exported="true"
             >
             <intent-filter>
@@ -156,7 +154,7 @@
                 android:resource="@xml/sync_adapter"/>
         </service>
         <service
-            android:name=".daemon.KeepAuthService"
+            android:name="com.little.sample.daemon.KeepAuthService"
             android:exported="true"
             >
             <intent-filter>
@@ -167,6 +165,55 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator"/>
         </service>
+
+        <receiver
+            android:name="com.little.sample.daemon.WakeUpReceiver"
+            android:process=":watch">
+            <intent-filter>
+                <action android:name="com.little.sample.CANCEL_JOB_ALARM_SUB"/>
+
+                <action android:name="android.intent.action.ACTION_MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+                <action android:name="android.intent.action.ACTION_USER_PRESENT"/>
+                <action android:name="android.intent.action.ACTION_SCREEN_ON"/>
+                <action android:name="android.intent.action.ACTION_SCREEN_OFF"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.little.sample.daemon.WakeUpReceiver$WakeUpAutoStartReceiver"
+            android:process=":watch">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.little.sample.daemon.TraceServiceImpl"/>
+
+        <service android:name="com.little.sample.daemon.AbsWorkService$WorkNotificationService"/>
+
+        <service
+            android:name="com.little.sample.daemon.JobSchedulerService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":watch"/>
+
+        <service
+            android:name="com.little.sample.daemon.WatchDogService"
+            android:process=":watch"/>
+
+        <service
+            android:name="com.little.sample.daemon.WatchDogService$WatchDogNotificationService"
+            android:process=":watch"/>
     </application>
 
     //简单配置即可

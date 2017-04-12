@@ -3,16 +3,17 @@ package com.little.sample.base;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.little.picture.util.fresco.FrescoUtils;
+import com.little.sample.daemon.DaemonEnv;
 import com.little.sample.daemon.KeepLiveActivity;
-import com.little.sample.daemon.KeepLiveFor5Service;
-import com.little.sample.daemon.KeepLiveService;
+import com.little.sample.daemon.KeepLiveManager;
+import com.little.sample.daemon.TraceServiceImpl;
 import com.little.sample.util.ProcessUtil;
 import com.little.sample.util.StringUtil;
+import com.little.visit.util.LogUtil;
 
 
 public class BaseApplication extends MultiDexApplication {
@@ -38,9 +39,10 @@ public class BaseApplication extends MultiDexApplication {
         processName = ProcessUtil.getProcessName(this, android.os.Process.myPid());
         if (!StringUtil.isEmpty(processName)) {
             boolean defaultProcess = processName.equals(getPackageName());
+            LogUtil.e("defaultProcess= "+defaultProcess);
             if (defaultProcess) {
                 initAppForMainProcess();
-            } else if (processName.contains(":live")) {
+            } else if (processName.contains(":watch")) {
                 initAppForLiveProcess();
             }
         }
@@ -51,6 +53,8 @@ public class BaseApplication extends MultiDexApplication {
      */
     private void initAppForMainProcess(){
         FrescoUtils.init(this);
+        KeepLiveManager.getInstance().startKeepLiveService();
+        KeepLiveManager.getInstance().addAccount();
     }
 
     private void initAppForLiveProcess(){
@@ -65,7 +69,7 @@ public class BaseApplication extends MultiDexApplication {
             if (defaultProcess) {
                 MultiDex.install(base);
                 startKeepLiveService();
-            } else if (processName.contains(":live")) {
+            } else if (processName.contains(":watch")) {
 
             }
         }
@@ -81,11 +85,9 @@ public class BaseApplication extends MultiDexApplication {
     public void startKeepLiveService(){
         try {
             if (BaseConstant.IS_KEEP_LIVE){
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                    startService(new Intent(this, KeepLiveFor5Service.class));
-                }else {
-                    startService(new Intent(this, KeepLiveService.class));
-                }
+                LogUtil.e("--------------DaemonEnv.initialize--------------");
+                DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+                startService(new Intent(this, TraceServiceImpl.class));
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -2,13 +2,15 @@ package com.little.sample.daemon;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Notification;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -45,61 +47,18 @@ public class KeepLiveManager{
         ScreenManager.getScreenManagerInstance().closeAppoin(KeepLiveActivity.class);
     }
 
+    /**
+     * 启动业务服务
+     */
     public void startKeepLiveService(){
         BaseApplication.self().startKeepLiveService();
-//        startInnerService();
     }
 
     /**
-     * 提升service优先级为前台service
-     * 作用：防杀，使service不容易被系统杀死
-     * 适用范围：到android6.0
-     * @param keepLiveService
-     * @param innerService
+     * 停止业务服务
      */
-    public void setForeground(Service keepLiveService,Service innerService){
-        this.innerService = innerService;
-        if (keepLiveService!=null){
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2){
-                keepLiveService.startForeground(foregroundPushId,new Notification());
-            }else {
-                keepLiveService.startForeground(foregroundPushId,new Notification());
-//                startInnerService();
-            }
-        }
-    }
-
-    /**
-     * 提升service优先级为前台service
-     * 作用：防杀，使service不容易被系统杀死
-     * 适用范围：到android6.0
-     * @param keepLiveService
-     */
-    public void setForeground(Service keepLiveService){
-        if (keepLiveService!=null){
-            keepLiveService.startForeground(foregroundPushId, new Notification());
-        }
-    }
-
-    /**
-     * 设置前台service隐藏
-     * @param innerService
-     */
-    public void setInnerService(Service innerService){
-        this.innerService = innerService;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
-            startInnerService();
-        }
-    }
-
-    /**
-     * 设置前台service隐藏
-     */
-    public void startInnerService(){
-        if (innerService!=null){
-            innerService.startForeground(foregroundPushId,new Notification());
-            innerService.stopSelf();
-        }
+    public void stopKeepLiveService(){
+        TraceServiceImpl.stopService();
     }
 
     /**
@@ -109,15 +68,48 @@ public class KeepLiveManager{
     public void startJobScheduler(){
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                int jobId = 1;
-                JobInfo.Builder builder = new JobInfo.Builder(jobId,
-                        new ComponentName(BaseApplication.self(),KeepLiveService.class));
-                builder.setPeriodic(10);
+                JobInfo.Builder builder = new JobInfo.Builder(WatchDogService.HASH_CODE, new ComponentName(DaemonEnv.sApp, JobSchedulerService.class));
+                builder.setPeriodic(DaemonEnv.getWakeUpInterval());
+                //Android 7.0+ 增加了一项针对 JobScheduler 的新限制，最小间隔只能是下面设定的数字
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) builder.setPeriodic(JobInfo.getMinPeriodMillis(), JobInfo.getMinFlexMillis());
                 builder.setPersisted(true);
-                JobScheduler jobScheduler = (JobScheduler)BaseApplication.self().getSystemService(Context.JOB_SCHEDULER_SERVICE);
-                jobScheduler.schedule(builder.build());
+                JobScheduler scheduler = (JobScheduler) BaseApplication.self().getSystemService(WatchDogService.JOB_SCHEDULER_SERVICE);
+                scheduler.schedule(builder.build());
             }
-        }catch (Throwable e){
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 启动闹钟定时拉活
+     * @return
+     */
+    public PendingIntent startAlarm(){
+        try {
+            PendingIntent sPendingIntent = null;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
+                //Android 4.4- 使用 AlarmManager
+                AlarmManager am = (AlarmManager) BaseApplication.self().getSystemService(WatchDogService.ALARM_SERVICE);
+                Intent i = new Intent(DaemonEnv.sApp, DaemonEnv.sServiceClass);
+                sPendingIntent = PendingIntent.getService(DaemonEnv.sApp, WatchDogService.HASH_CODE, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + DaemonEnv.getWakeUpInterval(), DaemonEnv.getWakeUpInterval(), sPendingIntent);
+            }
+            return sPendingIntent;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 用于在不需要服务运行的时候取消 Job / Alarm / Subscription.
+     */
+    public void cancelJobAlarmSub() {
+        try {
+            if (!DaemonEnv.sInitialized) return;
+            DaemonEnv.sApp.sendBroadcast(new Intent(WakeUpReceiver.ACTION_CANCEL_JOB_ALARM_SUB));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -127,19 +119,23 @@ public class KeepLiveManager{
      * 适用范围：所有版本
      */
     public void addAccount(){
-        AccountManager accountManager = (AccountManager)BaseApplication.self().getSystemService(Context.ACCOUNT_SERVICE);
-        Account[] accounts = accountManager.getAccountsByType(ACCOUNT_TYPE);
-        if (accounts!=null&&accounts.length>0){
-            account = accounts[0];
-        }else {
-            account = new Account(BaseApplication.self().getString(R.string.account),ACCOUNT_TYPE);
-        }
-        if (accountManager.addAccountExplicitly(account,null,null)){
-            //开启同步，并设置周期
-            ContentResolver.setIsSyncable(account,CONTENT_AUTHORITY,1);
-            ContentResolver.setSyncAutomatically(account,CONTENT_AUTHORITY,true);
-            ContentResolver.addPeriodicSync(account,CONTENT_AUTHORITY,new Bundle(),SYNC_FREQUENCY);
-            LogUtil.e("--------------开启同步，并设置周期--------------");
+        try {
+            AccountManager accountManager = (AccountManager)BaseApplication.self().getSystemService(Context.ACCOUNT_SERVICE);
+            Account[] accounts = accountManager.getAccountsByType(ACCOUNT_TYPE);
+            if (accounts!=null&&accounts.length>0){
+                account = accounts[0];
+            }else {
+                account = new Account(BaseApplication.self().getString(R.string.account),ACCOUNT_TYPE);
+            }
+            if (accountManager.addAccountExplicitly(account,null,null)){
+                //开启同步，并设置周期
+                ContentResolver.setIsSyncable(account,CONTENT_AUTHORITY,1);
+                ContentResolver.setSyncAutomatically(account,CONTENT_AUTHORITY,true);
+                ContentResolver.addPeriodicSync(account,CONTENT_AUTHORITY,new Bundle(),SYNC_FREQUENCY);
+                LogUtil.e("--------------开启同步，并设置周期--------------");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -147,15 +143,19 @@ public class KeepLiveManager{
      * 手动更新
      */
     public void triggerRefresh() {
-        if (account==null){
-            return;
+        try {
+            if (account==null){
+                return;
+            }
+            Bundle b = new Bundle();
+            b.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
+            b.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
+            ContentResolver.requestSync(
+                    account,
+                    CONTENT_AUTHORITY,
+                    b);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Bundle b = new Bundle();
-        b.putBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, true);
-        b.putBoolean(ContentResolver.SYNC_EXTRAS_EXPEDITED, true);
-        ContentResolver.requestSync(
-                account,
-                CONTENT_AUTHORITY,
-                b);
     }
 }

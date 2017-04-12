@@ -19,6 +19,7 @@ import com.little.picture.util.ToastUtil;
 import com.little.sample.R;
 import com.little.sample.base.BaseConstant;
 import com.little.sample.base.BaseFragmentActivity;
+import com.little.sample.daemon.IntentWrapper;
 import com.little.sample.fragment.DropArrowSampleFragment;
 import com.little.sample.fragment.DropCustomSampleFragment;
 import com.little.sample.fragment.DropSwipeSampleFragment;
@@ -91,6 +92,13 @@ public class HomeActivity extends BaseFragmentActivity implements IOnPermissionL
         registerBroadcast();
 //        VersionCheckUtil versionCheckUtils = new VersionCheckUtil(this,naviText0,taskTag);
 //        versionCheckUtils.checkVersion(false);
+
+        /**
+         * 轨迹跟踪服务的持续运行
+         */
+        if (BaseConstant.IS_KEEP_LIVE){
+            IntentWrapper.whiteListMatters(this, "轨迹跟踪服务的持续运行");
+        }
 
     }
 
@@ -222,15 +230,19 @@ public class HomeActivity extends BaseFragmentActivity implements IOnPermissionL
     @Override
     public void onBackPressed() {
         try {
-            long secondTime = System.currentTimeMillis();
-            if (secondTime - firstTime > 2000) {
-                ToastUtil.addToast(this, getString(R.string.quit));
-                firstTime = secondTime;
-            } else {
-                finishSelf();
-            }
+            //防止华为机型未加入白名单时按返回键回到桌面再锁屏后几秒钟进程被杀
+//            if (BaseConstant.IS_KEEP_LIVE){
+//                IntentWrapper.onBackPressed(this);
+//            }else {
+                long secondTime = System.currentTimeMillis();
+                if (secondTime - firstTime > 2000) {
+                    ToastUtil.addToast(this, getString(R.string.quit));
+                    firstTime = secondTime;
+                } else {
+                    finishSelf();
+                }
+//            }
         } catch (Exception e) {
-            // TODO: handle exception
             e.printStackTrace();
         }
 
