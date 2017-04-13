@@ -107,7 +107,9 @@ public class KeepLiveManager{
      */
     public void cancelJobAlarmSub() {
         try {
-            if (!DaemonEnv.sInitialized) return;
+            if (!DaemonEnv.sInitialized) {
+                return;
+            }
             DaemonEnv.sApp.sendBroadcast(new Intent(WakeUpReceiver.ACTION_CANCEL_JOB_ALARM_SUB));
         } catch (Exception e) {
             e.printStackTrace();

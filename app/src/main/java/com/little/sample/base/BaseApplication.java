@@ -35,6 +35,10 @@ public class BaseApplication extends MultiDexApplication {
     }
 
     private void init(){
+        if (BaseConstant.IS_KEEP_LIVE){
+            LogUtil.e("--------------DaemonEnv.initialize--------------");
+            DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+        }
         BaseConstant.init(baseApplication);
         processName = ProcessUtil.getProcessName(this, android.os.Process.myPid());
         if (!StringUtil.isEmpty(processName)) {
@@ -68,7 +72,7 @@ public class BaseApplication extends MultiDexApplication {
             boolean defaultProcess = processName.equals(getPackageName());
             if (defaultProcess) {
                 MultiDex.install(base);
-                startKeepLiveService();
+//                startKeepLiveService();
             } else if (processName.contains(":watch")) {
 
             }
@@ -85,8 +89,8 @@ public class BaseApplication extends MultiDexApplication {
     public void startKeepLiveService(){
         try {
             if (BaseConstant.IS_KEEP_LIVE){
-                LogUtil.e("--------------DaemonEnv.initialize--------------");
-                DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+//                LogUtil.e("--------------DaemonEnv.initialize--------------");
+//                DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
                 startService(new Intent(this, TraceServiceImpl.class));
             }
         }catch (Exception e){

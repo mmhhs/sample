@@ -5,6 +5,7 @@
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
+        android:installLocation="auto"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:persistent="true"
@@ -166,24 +167,25 @@
                 android:resource="@xml/authenticator"/>
         </service>
 
-        <receiver
-            android:name="com.little.sample.daemon.WakeUpReceiver"
-            android:process=":watch">
-            <intent-filter>
-                <action android:name="com.little.sample.CANCEL_JOB_ALARM_SUB"/>
+        <!--<receiver-->
+            <!--android:name="com.little.sample.daemon.WakeUpReceiver"-->
+            <!--android:process=":watch">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.little.sample.CANCEL_JOB_ALARM_SUB"/>-->
+                <!--<action android:name="android.intent.action.ACTION_MEDIA_MOUNTED"/>-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>-->
+                <!--<action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>-->
+                <!--<action android:name="android.intent.action.ACTION_USER_PRESENT"/>-->
+                <!--<action android:name="android.intent.action.ACTION_SCREEN_ON"/>-->
+                <!--<action android:name="android.intent.action.ACTION_SCREEN_OFF"/>-->
+                <!--<data android:scheme="file"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-                <action android:name="android.intent.action.ACTION_MEDIA_MOUNTED"/>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
-                <action android:name="android.intent.action.ACTION_USER_PRESENT"/>
-                <action android:name="android.intent.action.ACTION_SCREEN_ON"/>
-                <action android:name="android.intent.action.ACTION_SCREEN_OFF"/>
-            </intent-filter>
-        </receiver>
-
+        <!--android:process=":watch">-->
         <receiver
             android:name="com.little.sample.daemon.WakeUpReceiver$WakeUpAutoStartReceiver"
-            android:process=":watch">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
