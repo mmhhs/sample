@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">阿西斯林</string>
+    <string name="app_name">LITTLE</string>
     <string name="action_settings">Settings</string>
     <!-- keep alive start -->
-    <string name="account">Sample</string>
+    <string name="account">LITTLE</string>
     <string name="account_auth_provider">com.little.sample.provider</string>
     <string name="account_auth_type">com.little.sample</string>
     <!-- keep alive end -->
