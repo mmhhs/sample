@@ -7,10 +7,10 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.little.picture.util.fresco.FrescoUtils;
-import com.little.sample.daemon.DaemonEnv;
+import com.little.sample.daemon.DaemonHelper;
 import com.little.sample.daemon.KeepLiveActivity;
 import com.little.sample.daemon.KeepLiveManager;
-import com.little.sample.daemon.TraceServiceImpl;
+import com.little.sample.daemon.KeepWorkService;
 import com.little.sample.util.ProcessUtil;
 import com.little.sample.util.StringUtil;
 import com.little.visit.util.LogUtil;
@@ -36,8 +36,8 @@ public class BaseApplication extends MultiDexApplication {
 
     private void init(){
         if (BaseConstant.IS_KEEP_LIVE){
-            LogUtil.e("--------------DaemonEnv.initialize--------------");
-            DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+            LogUtil.e("--------------DaemonHelper.initialize--------------");
+            DaemonHelper.initialize(this, KeepWorkService.class, DaemonHelper.DEFAULT_WAKE_UP_INTERVAL);
         }
         BaseConstant.init(baseApplication);
         processName = ProcessUtil.getProcessName(this, android.os.Process.myPid());
@@ -89,9 +89,9 @@ public class BaseApplication extends MultiDexApplication {
     public void startKeepLiveService(){
         try {
             if (BaseConstant.IS_KEEP_LIVE){
-//                LogUtil.e("--------------DaemonEnv.initialize--------------");
-//                DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
-                startService(new Intent(this, TraceServiceImpl.class));
+//                LogUtil.e("--------------DaemonHelper.initialize--------------");
+//                DaemonHelper.initialize(this, KeepWorkService.class, DaemonHelper.DEFAULT_WAKE_UP_INTERVAL);
+                startService(new Intent(this, KeepWorkService.class));
             }
         }catch (Exception e){
             e.printStackTrace();

@@ -58,7 +58,7 @@ public class KeepLiveManager{
      * 停止业务服务
      */
     public void stopKeepLiveService(){
-        TraceServiceImpl.stopService();
+        KeepWorkService.stopService();
     }
 
     /**
@@ -68,12 +68,12 @@ public class KeepLiveManager{
     public void startJobScheduler(){
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                JobInfo.Builder builder = new JobInfo.Builder(WatchDogService.HASH_CODE, new ComponentName(DaemonEnv.sApp, JobSchedulerService.class));
-                builder.setPeriodic(DaemonEnv.getWakeUpInterval());
+                JobInfo.Builder builder = new JobInfo.Builder(KeepWatchService.HASH_CODE, new ComponentName(DaemonHelper.sApp, KeepJobSchedulerService.class));
+                builder.setPeriodic(DaemonHelper.getWakeUpInterval());
                 //Android 7.0+ 增加了一项针对 JobScheduler 的新限制，最小间隔只能是下面设定的数字
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) builder.setPeriodic(JobInfo.getMinPeriodMillis(), JobInfo.getMinFlexMillis());
                 builder.setPersisted(true);
-                JobScheduler scheduler = (JobScheduler) BaseApplication.self().getSystemService(WatchDogService.JOB_SCHEDULER_SERVICE);
+                JobScheduler scheduler = (JobScheduler) BaseApplication.self().getSystemService(KeepWatchService.JOB_SCHEDULER_SERVICE);
                 scheduler.schedule(builder.build());
             }
         }catch (Exception e){
@@ -90,10 +90,10 @@ public class KeepLiveManager{
             PendingIntent sPendingIntent = null;
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP){
                 //Android 4.4- 使用 AlarmManager
-                AlarmManager am = (AlarmManager) BaseApplication.self().getSystemService(WatchDogService.ALARM_SERVICE);
-                Intent i = new Intent(DaemonEnv.sApp, DaemonEnv.sServiceClass);
-                sPendingIntent = PendingIntent.getService(DaemonEnv.sApp, WatchDogService.HASH_CODE, i, PendingIntent.FLAG_UPDATE_CURRENT);
-                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + DaemonEnv.getWakeUpInterval(), DaemonEnv.getWakeUpInterval(), sPendingIntent);
+                AlarmManager am = (AlarmManager) BaseApplication.self().getSystemService(KeepWatchService.ALARM_SERVICE);
+                Intent i = new Intent(DaemonHelper.sApp, DaemonHelper.sServiceClass);
+                sPendingIntent = PendingIntent.getService(DaemonHelper.sApp, KeepWatchService.HASH_CODE, i, PendingIntent.FLAG_UPDATE_CURRENT);
+                am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + DaemonHelper.getWakeUpInterval(), DaemonHelper.getWakeUpInterval(), sPendingIntent);
             }
             return sPendingIntent;
         }catch (Exception e){
@@ -107,10 +107,10 @@ public class KeepLiveManager{
      */
     public void cancelJobAlarmSub() {
         try {
-            if (!DaemonEnv.sInitialized) {
+            if (!DaemonHelper.sInitialized) {
                 return;
             }
-            DaemonEnv.sApp.sendBroadcast(new Intent(WakeUpReceiver.ACTION_CANCEL_JOB_ALARM_SUB));
+            DaemonHelper.sApp.sendBroadcast(new Intent(WakeUpReceiver.ACTION_CANCEL_JOB_ALARM_SUB));
         } catch (Exception e) {
             e.printStackTrace();
         }
