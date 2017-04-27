@@ -148,7 +148,7 @@ public class PictureSampleActivity extends Activity {
             intent.putExtra(PicturePickActivity.PICTURE_PICK_TYPE,pickType);
             startActivity(intent);
         }else {
-            ToastUtil.addToast(this, "" + getString(R.string.picture_max) + maxSize);
+            ToastUtil.addToast("" + getString(R.string.picture_max) + maxSize);
         }
 
     }

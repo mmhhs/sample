@@ -148,7 +148,7 @@ public class VersionUpdate {
                     }
                 } else {
                     if (showToast) {
-                        ToastUtil.addToast(context, "已经是最新的版本");
+                        ToastUtil.addToast("已经是最新的版本");
                     }
                 }
             }
@@ -177,7 +177,7 @@ public class VersionUpdate {
 
             @Override
             public void onError(String tip) {
-                ToastUtil.addToast(context, tip);
+                ToastUtil.addToast(tip);
             }
 
             @Override

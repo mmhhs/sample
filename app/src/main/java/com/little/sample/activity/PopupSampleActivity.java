@@ -42,7 +42,7 @@ public class PopupSampleActivity extends Activity {
                 popupDialog = new PopupDialog.Builder(this).dismissBackKey(true).dismissOutside(true).onItemListener(new IOnItemListener() {
                     @Override
                     public void onItem(int position) {
-                        ToastUtil.addToast(PopupSampleActivity.this,"您选择了："+testList.get(position));
+                        ToastUtil.addToast("您选择了："+testList.get(position));
                     }
                 }).build();
                 popupDialog.showListDialog(view,testList);
@@ -57,7 +57,7 @@ public class PopupSampleActivity extends Activity {
                         .onDialogListener(new IOnDialogListener() {
                             @Override
                             public void onConfirm() {
-                                ToastUtil.addToast(PopupSampleActivity.this,"您点击了确定按钮");
+                                ToastUtil.addToast("您点击了确定按钮");
                             }
 
                             @Override
@@ -83,12 +83,12 @@ public class PopupSampleActivity extends Activity {
                         .onDialogListener(new IOnDialogListener() {
                             @Override
                             public void onConfirm() {
-                                ToastUtil.addToast(PopupSampleActivity.this, "您点击了确定按钮");
+                                ToastUtil.addToast("您点击了确定按钮");
                             }
 
                             @Override
                             public void onCancel() {
-                                ToastUtil.addToast(PopupSampleActivity.this, "您点击了取消按钮");
+                                ToastUtil.addToast("您点击了取消按钮");
                             }
 
                             @Override
@@ -110,17 +110,17 @@ public class PopupSampleActivity extends Activity {
                         .onDialogListener(new IOnDialogListener() {
                             @Override
                             public void onConfirm() {
-                                ToastUtil.addToast(PopupSampleActivity.this, "您点击了确定按钮");
+                                ToastUtil.addToast("您点击了确定按钮");
                             }
 
                             @Override
                             public void onCancel() {
-                                ToastUtil.addToast(PopupSampleActivity.this, "您点击了取消按钮");
+                                ToastUtil.addToast("您点击了取消按钮");
                             }
 
                             @Override
                             public void onOther() {
-                                ToastUtil.addToast(PopupSampleActivity.this,"您点击了忽略按钮");
+                                ToastUtil.addToast("您点击了忽略按钮");
                             }
                         }).build();
                 popupDialog.showTipDialog(view, "当前有新版本，是否马上更新？");

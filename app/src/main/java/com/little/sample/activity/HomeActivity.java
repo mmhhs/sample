@@ -19,7 +19,6 @@ import com.little.picture.util.ToastUtil;
 import com.little.sample.R;
 import com.little.sample.base.BaseConstant;
 import com.little.sample.base.BaseFragmentActivity;
-import com.little.sample.daemon.CompatIntentWrapper;
 import com.little.sample.fragment.DropArrowSampleFragment;
 import com.little.sample.fragment.DropCustomSampleFragment;
 import com.little.sample.fragment.DropSwipeSampleFragment;
@@ -93,13 +92,13 @@ public class HomeActivity extends BaseFragmentActivity implements IOnPermissionL
 //        VersionCheckUtil versionCheckUtils = new VersionCheckUtil(this,naviText0,taskTag);
 //        versionCheckUtils.checkVersion(false);
 
-        /**
-         * 轨迹跟踪服务的持续运行
-         */
-        if (BaseConstant.IS_KEEP_LIVE){
-            CompatIntentWrapper.whiteListMatters(this, "轨迹跟踪服务的持续运行");
-        }
-
+//        /**
+//         * 轨迹跟踪服务的持续运行
+//         */
+//        if (BaseConstant.IS_KEEP_LIVE){
+//            CompatIntentWrapper.whiteListMatters(this, "轨迹跟踪服务的持续运行");
+//        }
+        PermissionUtil.doACacheNeedsPermissionWithCheck(this);
     }
 
     @Override
