@@ -101,8 +101,8 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
 		adapter = new ViewPagerAdapter(viewList);
 		mViewPager.setAdapter(adapter);
 		mViewPager.setOnPageChangeListener(this);
-		mPageIndicatorView.setTotalPage(imgList.size());
-		mPageIndicatorView.setCurrentPage(0);
+		mPageIndicatorView.setPageTotal(imgList.size());
+		mPageIndicatorView.setPageSelect(0);
 	}
 
 	@Override
@@ -128,7 +128,7 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
 
 	@Override
 	public void onPageSelected(int arg0) {
-		mPageIndicatorView.setCurrentPage(arg0);
+		mPageIndicatorView.setPageSelect(arg0);
 	}
 
 	public void setOnClickListener(IOnClickListener iOnClickListener) {

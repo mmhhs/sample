@@ -14,7 +14,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        app:radius="4dp"
-        app:space="15dp" />
+        app:indicatorRadius="3dp"
+        app:indicatorSpace="15dp" />
 
 </RelativeLayout>

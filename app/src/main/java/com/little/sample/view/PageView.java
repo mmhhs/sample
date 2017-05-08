@@ -80,11 +80,11 @@ public class PageView extends LinearLayout {
 	}
 
 	public void setIndicatorCurrent(int index){
-		pageViewHolder.pageIndicatorView.setCurrentPage(index);
+		pageViewHolder.pageIndicatorView.setPageSelect(index);
 	}
 
 	public void setIndicatorTotal(){
-		pageViewHolder.pageIndicatorView.setTotalPage(totalPage);
+		pageViewHolder.pageIndicatorView.setPageTotal(totalPage);
 	}
 
 	public void setIndicatorVisibility(int visibility){

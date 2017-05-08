@@ -13,8 +13,8 @@
 
     <com.little.picture.view.PageIndicatorView
         android:id="@+id/view_page_pageIndicatorView"
-        app:radius="4dp"
-        app:space="8dp"
+        app:indicatorRadius="4dp"
+        app:indicatorSpace="10dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="bottom" />

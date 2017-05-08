@@ -14,15 +14,5 @@
             <enum name="FILL" value="1"/>
         </attr>
     </declare-styleable>
-    <!-- 指示器 -->
-    <declare-styleable name="PageIndicatorView">
-        <attr name="indicatorRadius" format="dimension|integer" />
-        <attr name="indicatorSelectLength" format="dimension|integer" />
-        <attr name="indicatorDefaultColor" format="color" />
-        <attr name="indicatorSelectColor" format="color" />
-        <attr name="indicatorDefaultDrawable" format="color|reference" />
-        <attr name="indicatorSelectDrawable" format="color|reference" />
-        <attr name="indicatorSpace" format="dimension|integer" />
-        <attr name="indicatorGravity" format="integer" />
-    </declare-styleable>
+
 </resources>

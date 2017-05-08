@@ -5,12 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
+import com.little.picture.view.PageIndicatorView;
 import com.little.sample.R;
 import com.little.sample.adapter.FragmentVPAdapter;
 import com.little.sample.fragment.DropArrowSampleFragment;
 import com.little.sample.fragment.DropCustomSampleFragment;
 import com.little.sample.fragment.DropSwipeSampleFragment;
-import com.little.sample.view.PageIndicatorView;
 import com.little.title.TitlePagerLayout;
 import com.little.title.listener.IOnChangeListener;
 import com.little.title.model.TitleItem;

@@ -18,7 +18,7 @@
         android:layout_marginTop="1dp"
         android:layout_weight="1"
         />
-    <com.little.sample.view.PageIndicatorView
+    <com.little.picture.view.PageIndicatorView
         android:id="@+id/activity_title_center_sample_pageIndicatorView"
         android:layout_width="match_parent"
         android:layout_height="40dp"
