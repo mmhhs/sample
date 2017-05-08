@@ -10,6 +10,7 @@ import com.little.sample.adapter.FragmentVPAdapter;
 import com.little.sample.fragment.DropArrowSampleFragment;
 import com.little.sample.fragment.DropCustomSampleFragment;
 import com.little.sample.fragment.DropSwipeSampleFragment;
+import com.little.sample.view.PageIndicatorView;
 import com.little.title.TitlePagerLayout;
 import com.little.title.listener.IOnChangeListener;
 import com.little.title.model.TitleItem;
@@ -25,6 +26,8 @@ public class TitleAliquotLineSampleActivity extends FragmentActivity {
     TitlePagerLayout activityTitleCenterSampleTitlePagerLayout;
     @InjectView(R.id.activity_title_center_sample_viewPager)
     ViewPager activityTitleCenterSampleViewPager;
+    @InjectView(R.id.activity_title_center_sample_pageIndicatorView)
+    PageIndicatorView pageIndicatorView;
 
     private FragmentVPAdapter mFragmentPagerAdapter;
     private int screenFlag = 0;//界面标识
@@ -50,7 +53,7 @@ public class TitleAliquotLineSampleActivity extends FragmentActivity {
     }
 
     public void init() {
-        screenFlag = getIntent().getIntExtra("index",0);
+        screenFlag = getIntent().getIntExtra("index", 0);
         mFragmentPagerAdapter = new FragmentVPAdapter(getSupportFragmentManager(), fragmentList);
         activityTitleCenterSampleViewPager.setAdapter(mFragmentPagerAdapter);
         initFragment();
@@ -60,6 +63,24 @@ public class TitleAliquotLineSampleActivity extends FragmentActivity {
             @Override
             public void onChange(int position) {
                 screenFlag = position;
+            }
+        });
+        pageIndicatorView.setPageTotal(fragmentList.size());
+        pageIndicatorView.setPageSelect(0);
+        activityTitleCenterSampleViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                pageIndicatorView.setPageSelect(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         });
     }
