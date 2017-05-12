@@ -63,6 +63,7 @@ public class OkHttpUtil {
             @Override
             public void onFailure(int errorCode, String msg) {
 //                toast("网络异常~，请检查你的网络是否连接后再试");
+                LogUtil.e("OkHttpUtil onFailure: "+System.currentTimeMillis());
             }
 
             //请求网络结束

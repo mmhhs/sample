@@ -195,14 +195,14 @@ public class VolleyTask implements IOnTaskListener{
     }
 
     public void execute(){
-        onPreExecute();
+        onTaskPreExecute();
         if(netFlag!=NET_ERROR){
-           onVisit();
+           onTaskVisit();
         }
     }
 
     @Override
-    public void onPreExecute() {
+    public void onTaskPreExecute() {
         if(!HttpUtil.isNet(context)){
             netFlag = NET_ERROR;
             if (showStyle==POPUPSTYLE){
@@ -237,28 +237,28 @@ public class VolleyTask implements IOnTaskListener{
 
 
     @Override
-    public void onVisit() {
+    public void onTaskVisit() {
         switch (visitType){
             case INTERFACE_VISIT:
                 volleyUtil.visit(accessType, httpUrl, tagString, argMap, new IOnVisitListener<String>() {
                     @Override
                     public void onSuccess(String response) {
-                        onSuccess(response);
+                        onTaskSuccess(response);
                     }
 
                     @Override
                     public void onError() {
-                        onError();
+                        onTaskError();
                     }
 
                     @Override
                     public void onFinish() {
-                        onFinish();
+                        onTaskFinish();
                     }
 
                     @Override
                     public void onCancel() {
-                        onCancel();
+                        onTaskCancel();
                     }
                 });
                 break;
@@ -266,22 +266,22 @@ public class VolleyTask implements IOnTaskListener{
                 volleyUtil.uploadFile(httpUrl, tagString, keyString, fileList, argMap, new IOnVisitListener<String>() {
                     @Override
                     public void onSuccess(String response) {
-                        onSuccess(response);
+                        onTaskSuccess(response);
                     }
 
                     @Override
                     public void onError() {
-                        onError();
+                        onTaskError();
                     }
 
                     @Override
                     public void onFinish() {
-                        onFinish();
+                        onTaskFinish();
                     }
 
                     @Override
                     public void onCancel() {
-                        onCancel();
+                        onTaskCancel();
                     }
                 });
                 break;
@@ -289,22 +289,22 @@ public class VolleyTask implements IOnTaskListener{
                 volleyUtil.downloadFile(httpUrl, tagString, filePath, new IOnVisitListener<String>() {
                     @Override
                     public void onSuccess(String response) {
-                        onSuccess(response);
+                        onTaskSuccess(response);
                     }
 
                     @Override
                     public void onError() {
-                        onError();
+                        onTaskError();
                     }
 
                     @Override
                     public void onFinish() {
-                        onFinish();
+                        onTaskFinish();
                     }
 
                     @Override
                     public void onCancel() {
-                        onCancel();
+                        onTaskCancel();
                     }
                 });
                 break;
@@ -312,22 +312,22 @@ public class VolleyTask implements IOnTaskListener{
                 volleyUtil.downloadImage(httpUrl, tagString, new IOnVisitListener<Bitmap>() {
                     @Override
                     public void onSuccess(Bitmap response) {
-                        onSuccess(response);
+                        onTaskSuccess(response);
                     }
 
                     @Override
                     public void onError() {
-                        onError();
+                        onTaskError();
                     }
 
                     @Override
                     public void onFinish() {
-                        onFinish();
+                        onTaskFinish();
                     }
 
                     @Override
                     public void onCancel() {
-                        onCancel();
+                        onTaskCancel();
                     }
                 });
                 break;
@@ -335,7 +335,7 @@ public class VolleyTask implements IOnTaskListener{
     }
 
     @Override
-    public void onSuccess(Object response) {
+    public void onTaskSuccess(Object response) {
         if (!isCanceled){
             switch (visitType) {
                 case INTERFACE_VISIT:
@@ -390,25 +390,31 @@ public class VolleyTask implements IOnTaskListener{
     }
 
     @Override
-    public void onError() {
-        resultMsg = context.getString(R.string.visit4);
-        if(onVisitResultListener !=null){
-            this.onVisitResultListener.onError(resultMsg);
-        }
-        if (!StringUtil.isEmpty(resultMsg)&&showTipError){
-            ToastUtil.addToast(context, resultMsg);
-        }
-        if (showStyle==VIEWSTYLE){
-            if (showLoading) {
-                showErrorView = true;
-                viewUtil.addErrorView(context, resultMsg,
-                        contentView, loadingLayout, onRetryListener);
+    public void onTaskError() {
+        try {
+            if (!isCanceled) {
+                resultMsg = context.getString(R.string.visit4);
+                if (onVisitResultListener != null) {
+                    this.onVisitResultListener.onError(resultMsg);
+                }
+                if (!StringUtil.isEmpty(resultMsg) && showTipError) {
+                    ToastUtil.addToast(context, resultMsg);
+                }
+                if (showStyle == VIEWSTYLE) {
+                    if (showLoading) {
+                        showErrorView = true;
+                        viewUtil.addErrorView(context, resultMsg,
+                                contentView, loadingLayout, onRetryListener);
+                    }
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void onFinish() {
+    public void onTaskFinish() {
         try {
             if (showLoading){
                 if (showStyle==POPUPSTYLE){
@@ -430,7 +436,7 @@ public class VolleyTask implements IOnTaskListener{
     }
 
     @Override
-    public void onCancel() {
+    public void onTaskCancel() {
         isCanceled = true;
     }
 
