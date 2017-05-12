@@ -30,11 +30,16 @@ public class BaseConstant {
 
     public static void init(Context context){
         IMAGE_SAVE_PATH = context.getExternalFilesDir("") + "/cache/image/";
-        APK_PATH = context.getExternalFilesDir("") + "/apk/app.apk";
+        APK_PATH = context.getExternalFilesDir("") + "/apk/";
         File saveFile = new File(IMAGE_SAVE_PATH);
         if (!saveFile.exists()){
             saveFile.mkdirs();
         }
+        File apkFile = new File(APK_PATH);
+        if (!apkFile.exists()){
+            apkFile.mkdirs();
+        }
+        APK_PATH = context.getExternalFilesDir("") + "/apk/app.apk";
         LogUtil.setIsDebug(IS_DEBUG);//设置打印日志开关
     }
 
