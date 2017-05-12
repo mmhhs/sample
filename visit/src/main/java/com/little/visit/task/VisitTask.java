@@ -296,20 +296,20 @@ public abstract class VisitTask extends AsycnTask<Void, String, TaskResult> {
         this.resultsString = resultsString;
     }
 
-    public IOnBackgroundListener getOnBackgroundListener() {
-        return onBackgroundListener;
-    }
-
-    public void setOnBackgroundListener(IOnBackgroundListener onBackgroundListener) {
-        this.onBackgroundListener = onBackgroundListener;
-    }
-
     public ResultEntity getResultEntity() {
         return resultEntity;
     }
 
     public void setResultEntity(ResultEntity resultEntity) {
         this.resultEntity = resultEntity;
+    }
+
+    public IOnBackgroundListener getOnBackgroundListener() {
+        return onBackgroundListener;
+    }
+
+    public void setOnBackgroundListener(IOnBackgroundListener onBackgroundListener) {
+        this.onBackgroundListener = onBackgroundListener;
     }
 
     public IOnEncryptListener getOnEncryptListener() {

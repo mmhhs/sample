@@ -11,7 +11,7 @@ import java.io.File;
  */
 public class BaseConstant {
     public static final boolean IS_DEBUG = true;//调试模式
-    public static final boolean IS_KEEP_LIVE = true;//开启保活
+    public static final boolean IS_KEEP_LIVE = false;//开启保活
     public static String IMAGE_SAVE_PATH = "";//图片存储路径
     public static String APK_PATH = "";//APK存储路径
     public static final int SCALE_WIDTH = 360;//压缩图片的目标宽度

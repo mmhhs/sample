@@ -7,5 +7,8 @@
     <string name="account_auth_type">com.little.sample</string>
     <!-- keep alive end -->
     <string name="quit">再按一次退出应用</string>
+    <string name="title_activity_test_visit">TestVisitActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

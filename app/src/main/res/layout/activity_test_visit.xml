@@ -1,0 +1,45 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/popup_light_grey"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:gravity="center"
+        android:text="网络库速度测试"
+        android:textSize="18sp"
+        android:textColor="@color/popup_white"
+        android:background="@color/picture_deep_grey"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="第一种：volley"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_title_sample_a"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="第二种：OKHttp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_title_sample_b"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="第三种：HttpClient"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/popup_selector_bg"
+        android:id="@+id/activity_title_sample_c"/>
+
+</LinearLayout>
