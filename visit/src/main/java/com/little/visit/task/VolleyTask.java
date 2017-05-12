@@ -40,10 +40,8 @@ public class VolleyTask implements IOnTaskListener{
     private LinearLayout loadingLayout;//加载界面
     private IOnRetryListener onRetryListener;//重试操作监听
     private ViewUtil viewUtil;//视图管理
-
     private PopupUtil popupUtil;//弹窗管理
     private PopupWindow loadPopupWindow;//加载框
-
     private IOnVisitResultListener onVisitResultListener;//返回值判断结果监听
     //显示
     private String loadingString = "";//加载中文字
