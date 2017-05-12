@@ -51,7 +51,6 @@ public class VolleyTask implements IOnTaskListener{
     private boolean showTipSuccess = false;//成功时显示提示信息
     private boolean showTipError = true;//错误时显示提示信息
     private boolean showNetToast = true;//显示网络问题toast
-
     //访问
     private int visitType = INTERFACE_VISIT;//访问类型 接口，文件上传，文件下载，图片下载
     private int accessType;//访问方式
