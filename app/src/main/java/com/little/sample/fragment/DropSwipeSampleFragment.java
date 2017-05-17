@@ -12,13 +12,13 @@ import com.little.drop.listener.IOnRefreshListener;
 import com.little.drop.ultimate.UltimateRecyclerView;
 import com.little.sample.R;
 import com.little.sample.adapter.DropSampleAdapter;
+import com.little.sample.base.BaseApplication;
 import com.little.sample.model.VisitSampleDataEntity;
 import com.little.sample.model.VisitSampleResult;
-import com.little.visit.TaskConstant;
-import com.little.visit.listener.IOnResultListener;
 import com.little.visit.listener.IOnRetryListener;
-import com.little.visit.task.PageVisitTask;
-import com.little.visit.task.VisitTask;
+import com.little.visit.listener.IOnVisitResultListener;
+import com.little.visit.okhttp.OkHttpUtil;
+import com.little.visit.task.OKHttpTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,38 +124,39 @@ public class DropSwipeSampleFragment extends Fragment {
     }
 
     void getList(final boolean showLoad) {
-        String url = "http://10.100.2.91:8012/serviceProvider/getBrandInfo.action";
-        Map<String, Object> argMap = new HashMap<String, Object>();
+        String url = "https://bfda-app.ifoton.com.cn/serviceProvider/getBrandInfo.action";
+        Map<String, String> argMap = new HashMap<String, String>();
         argMap.put("page", ""+pageNumber);
         argMap.put("pageSize", ""+PAGER_COUNT);
         argMap.put("brandType", "3");
-        PageVisitTask visitTask = new PageVisitTask(getActivity(),tagStr,visitLinkContainer,visitLinkLoadingLayout,"",showLoad,onRetryListener,url,argMap,TaskConstant.POST);
-        visitTask.setParseClass(VisitSampleResult.class);
-        visitTask.setiOnResultListener(new IOnResultListener() {
+        final OKHttpTask okHttpTask = new OKHttpTask(BaseApplication.self(), tagStr, visitLinkContainer, visitLinkLoadingLayout,showLoad, url, argMap, OkHttpUtil.POST,VisitSampleResult.class,onRetryListener);
+        okHttpTask.setOnVisitResultListener(new IOnVisitResultListener<VisitSampleResult>() {
             @Override
-            public void onSuccess(VisitTask task) {
-                if (task.getResultEntity() instanceof VisitSampleResult) {
-                    VisitSampleResult res = (VisitSampleResult) task.getResultEntity();
-                    resultList = res.data;
-                }
-                updateInfo((PageVisitTask) task);
+            public void onSuccess(VisitSampleResult res) {
+                resultList = res.data;
+                updateInfo(okHttpTask);
             }
 
             @Override
-            public void onError(VisitTask task) {
+            public void onError(String msg) {
 
             }
 
             @Override
-            public void onDone(VisitTask task) {
+            public void onFinish() {
                 try {
                     fragmentDropSwipeRecyclerview.refreshFinish();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
+            @Override
+            public void onProgress(long bytes, long contentLength) {
+
+            }
         });
-        visitTask.execute();
+        okHttpTask.execute();
     }
 
     IOnRetryListener onRetryListener = new IOnRetryListener() {
@@ -170,7 +171,7 @@ public class DropSwipeSampleFragment extends Fragment {
         }
     };
 
-    void updateInfo(PageVisitTask task) {
+    void updateInfo(OKHttpTask task) {
         try {
             if (resultList != null) {
                 if (pageNumber == 1) {

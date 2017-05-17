@@ -7,15 +7,14 @@ import android.support.v4.app.FragmentActivity;
 import com.little.sample.manager.MFragmentsManager;
 import com.little.sample.manager.ScreenManager;
 import com.little.sample.util.TranslucentUtil;
-import com.little.visit.TaskManager;
-import com.little.visit.task.VisitTask;
+import com.little.visit.OKHttpManager;
 
 import butterknife.ButterKnife;
 
 public abstract class BaseFragmentActivity extends FragmentActivity {
 	public String taskTag = "BaseFragmentActivity";//当前BaseFragmentActivity的线程标识
 	protected ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
-	public TaskManager taskManager = TaskManager.getTaskManagerInstance();
+	public OKHttpManager taskManager = OKHttpManager.getOkHttpManager();
 	public MFragmentsManager mFragmentsManager = MFragmentsManager.getFragmentManagerInstance();
 
 	@Override
@@ -53,23 +52,12 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 	 */
 	public abstract void init();
 
-	/**
-	 * 添加线程到线程管理中
-	 * @param task
-	 */
-	protected void addTask(VisitTask task){
-		try {
-			taskManager.addTask(taskTag, task);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * 关闭当前FragmentActivity中所有还在运行的线程
 	 */
 	protected void cancelTasks(){
-		taskManager.cancelLimitTasks(taskTag);
+		taskManager.cancelTasksByTag(taskTag);
 	}
 
 	/**

@@ -6,13 +6,12 @@ import android.support.v4.app.Fragment;
 
 import com.little.sample.manager.MFragmentsManager;
 import com.little.sample.manager.ScreenManager;
-import com.little.visit.TaskManager;
-import com.little.visit.task.VisitTask;
+import com.little.visit.OKHttpManager;
 
 
 public abstract class BaseFragment extends Fragment {
     public String taskTag = "BaseFragment";//当前Fragment的线程标识
-    public TaskManager taskManager = TaskManager.getTaskManagerInstance();
+    public OKHttpManager taskManager = OKHttpManager.getOkHttpManager();
     public MFragmentsManager mFragmentsManager = MFragmentsManager.getFragmentManagerInstance();
     public ScreenManager screenManager = ScreenManager.getScreenManagerInstance();
     /** Fragment当前状态是否可见 */
@@ -98,24 +97,12 @@ public abstract class BaseFragment extends Fragment {
      */
     protected abstract void lazyLoad();
 
-    /**
-     * 添加线程到线程管理中
-     * @param task
-     */
-    protected void addTask(VisitTask task){
-        try {
-            taskManager.addTask(taskTag, task);
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 关闭当前Fragment中所有还在运行的线程
      */
     protected void cancelTasks(){
-        taskManager.cancelLimitTasks(taskTag);
+        taskManager.cancelTasksByTag(taskTag);
     }
 
     /**

@@ -7,12 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.little.sample.R;
+import com.little.sample.base.BaseApplication;
 import com.little.sample.model.VisitSampleDataEntity;
 import com.little.sample.model.VisitSampleResult;
-import com.little.visit.TaskConstant;
-import com.little.visit.listener.IOnResultListener;
-import com.little.visit.task.PopupVisitTask;
-import com.little.visit.task.VisitTask;
+import com.little.visit.listener.IOnVisitResultListener;
+import com.little.visit.okhttp.OkHttpUtil;
+import com.little.visit.task.OKHttpTask;
+import com.little.visit.util.LogUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +58,7 @@ public class VisitSampleActivity extends Activity {
         startActivity(intent);
     }
 
-    void updateInfo(PopupVisitTask task) {
+    void updateInfo(OKHttpTask task) {
         try {
             if (resultList != null) {
 
@@ -72,32 +73,34 @@ public class VisitSampleActivity extends Activity {
      * @param showDialog
      */
     private void visit(boolean showDialog){
-        String url = "http://192.168.0.107:8080/serviceProvider/getBrandInfo.action";
-        Map<String, Object> argMap = new HashMap<String, Object>();
+        String url = "https://bfda-app.ifoton.com.cn/serviceProvider/getBrandInfo.action";
+        Map<String, String> argMap = new HashMap<String, String>();
         argMap.put("brandType", "3");
-        PopupVisitTask visitTask = new PopupVisitTask(this,tagStr,activityVisitSampleA,"",showDialog,url,argMap, TaskConstant.POST);
-        visitTask.setParseClass(VisitSampleResult.class);
-        visitTask.setiOnResultListener(new IOnResultListener() {
+        final OKHttpTask okHttpTask = new OKHttpTask(BaseApplication.self(), tagStr, activityVisitSampleA, showDialog, url, argMap, OkHttpUtil.POST,VisitSampleResult.class);
+        okHttpTask.setOnVisitResultListener(new IOnVisitResultListener<VisitSampleResult>() {
             @Override
-            public void onSuccess(VisitTask task) {
-                if (task.getResultEntity() instanceof VisitSampleResult) {
-                    VisitSampleResult res = (VisitSampleResult) task.getResultEntity();
-                    resultList = res.data;
-                }
-                updateInfo((PopupVisitTask) task);
+            public void onSuccess(VisitSampleResult res) {
+                resultList = res.data;
+                updateInfo(okHttpTask);
+                LogUtil.e("onSuccess:"+res);
             }
 
             @Override
-            public void onError(VisitTask task) {
+            public void onError(String msg) {
+                LogUtil.e("onError:"+msg);
+            }
+
+            @Override
+            public void onFinish() {
 
             }
 
             @Override
-            public void onDone(VisitTask task) {
+            public void onProgress(long bytes, long contentLength) {
 
             }
         });
-        visitTask.execute();
+        okHttpTask.execute();
     }
 
 }

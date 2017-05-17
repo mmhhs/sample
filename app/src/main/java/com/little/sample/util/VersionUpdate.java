@@ -8,16 +8,16 @@ import android.view.View;
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnDialogListener;
 import com.little.popup.listener.IOnDismissListener;
+import com.little.sample.base.BaseApplication;
 import com.little.sample.base.BaseConstant;
 import com.little.sample.manager.ScreenManager;
 import com.little.sample.model.VersionDataEntity;
 import com.little.sample.model.VersionResult;
-import com.little.visit.TaskConstant;
-import com.little.visit.listener.IOnProgressListener;
 import com.little.visit.listener.IOnResultListener;
-import com.little.visit.task.DownloadVisitTask;
-import com.little.visit.task.PopupVisitTask;
-import com.little.visit.task.VisitTask;
+import com.little.visit.listener.IOnVisitResultListener;
+import com.little.visit.model.ResultEntity;
+import com.little.visit.okhttp.OkHttpUtil;
+import com.little.visit.task.OKHttpTask;
 
 import java.io.File;
 import java.util.HashMap;
@@ -46,42 +46,43 @@ public class VersionUpdate {
 
     public void checkVersion(boolean showDialog, final boolean needUpdate) {
         String httpUrl = BaseConstant.VERSION;
-        Map<String, Object> argMap = new HashMap<String, Object>();
+        Map<String, String> argMap = new HashMap<String, String>();
         argMap.put("version", SystemUtil.getVersionName(context));
         argMap.put("versionCode", "" + SystemUtil.getVersionCode(context));
         argMap.put("deviceType", "1");//设备类型
-        PopupVisitTask visitTask = new PopupVisitTask(context, taskTag, contentView, "", showDialog, httpUrl, argMap, TaskConstant.POST);
-        visitTask.setParseClass(VersionResult.class);
-        visitTask.setiOnResultListener(new IOnResultListener() {
+        OKHttpTask okHttpTask = new OKHttpTask(BaseApplication.self(), taskTag, contentView, showDialog, httpUrl, argMap, OkHttpUtil.POST,VersionResult.class);
+        okHttpTask.setOnVisitResultListener(new IOnVisitResultListener<VersionResult>() {
             @Override
-            public void onSuccess(VisitTask task) {
-                if (task.getResultEntity() instanceof VersionResult) {
-                    VersionResult res = (VersionResult) task.getResultEntity();
-                    dataEntity = res.data;
-                }
+            public void onSuccess(VersionResult res) {
+                dataEntity = res.data;
                 if (needUpdate) {
                     updateVersion();
                 }
                 if (onResultListener != null) {
-                    onResultListener.onSuccess(task);
+                    onResultListener.onSuccess();
                 }
             }
 
             @Override
-            public void onError(VisitTask task) {
+            public void onError(String msg) {
                 if (onResultListener != null) {
-                    onResultListener.onError(task);
+                    onResultListener.onError();
                 }
             }
 
             @Override
-            public void onDone(VisitTask task) {
+            public void onFinish() {
                 if (onResultListener != null) {
-                    onResultListener.onDone(task);
+                    onResultListener.onDone();
                 }
+            }
+
+            @Override
+            public void onProgress(long bytes, long contentLength) {
+
             }
         });
-        visitTask.execute();
+        okHttpTask.execute();
     }
 
     private void updateVersion() {
@@ -158,39 +159,29 @@ public class VersionUpdate {
     }
 
     private void downLoadApk(String updateUrl, String storePath) {
-        DownloadVisitTask downloadVisitTask = new DownloadVisitTask(context, contentView, "下载更新", false, false, updateUrl, storePath);
-        downloadVisitTask.setOnProgressListener(new IOnProgressListener() {
+        OKHttpTask okHttpTask = new OKHttpTask(BaseApplication.self(),updateUrl,OKHttpTask.PROGRESSSTYLE,contentView,true,OKHttpTask.DOWNLOAD_FILE_VISIT,updateUrl,storePath, ResultEntity.class);
+        okHttpTask.setOnVisitResultListener(new IOnVisitResultListener<String>() {
             @Override
-            public void onStart() {
+            public void onSuccess(String res) {
+                SystemUtil.install(context, res);
+            }
+
+            @Override
+            public void onError(String msg) {
 
             }
 
             @Override
-            public void onTransferred(String transferedBytes, long totalBytes) {
+            public void onFinish() {
 
             }
 
             @Override
-            public void onSuccess(String fileStorePath) {
-                SystemUtil.install(context, fileStorePath);
-            }
-
-            @Override
-            public void onError(String tip) {
-                ToastUtil.addToast(tip);
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onDone() {
+            public void onProgress(long bytes, long contentLength) {
 
             }
         });
-        downloadVisitTask.execute();
+        okHttpTask.execute();
     }
 
     public boolean isShowToast() {

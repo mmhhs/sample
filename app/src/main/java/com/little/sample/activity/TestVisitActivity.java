@@ -8,13 +8,11 @@ import android.widget.TextView;
 import com.little.sample.R;
 import com.little.sample.base.BaseApplication;
 import com.little.sample.base.BaseConstant;
-import com.little.sample.util.OkHttpUtil;
-import com.little.visit.TaskConstant;
-import com.little.visit.listener.IOnResultListener;
+import com.little.sample.util.SystemUtil;
 import com.little.visit.listener.IOnVisitResultListener;
-import com.little.visit.task.PopupVisitTask;
-import com.little.visit.task.VisitTask;
-import com.little.visit.task.VolleyTask;
+import com.little.visit.model.ResultEntity;
+import com.little.visit.okhttp.OkHttpUtil;
+import com.little.visit.task.OKHttpTask;
 import com.little.visit.util.LogUtil;
 
 import java.util.HashMap;
@@ -46,55 +44,72 @@ public class TestVisitActivity extends AppCompatActivity {
         argMap.put("jsonParame",params);
         switch (view.getId()) {
             case R.id.activity_title_sample_a:
-//                VolleyUtil.getInstance(TestVisitActivity.this).visit(Request.Method.POST, url, "test", argMap);
-                VolleyTask volleyTask = new VolleyTask(BaseApplication.self(), "test", activityTitleSampleA, true, VolleyTask.DOWNLOAD_FILE_VISIT,apk,  ""+ BaseConstant.APK_PATH, null);
-                volleyTask.setOnVisitResultListener(new IOnVisitResultListener<String>() {
-                    @Override
-                    public void onSuccess(String res) {
-                        LogUtil.e("resultEntity= "+res);
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-                    }
-                });
-                volleyTask.execute();
+                visit(true);
                 break;
             case R.id.activity_title_sample_b:
-                OkHttpUtil.getInstance(TestVisitActivity.this).visit(url);
+                download(true);
+
                 break;
             case R.id.activity_title_sample_c:
-                getVersion(true);
+                download(false);
                 break;
         }
     }
 
-    void getVersion(final boolean showDialog) {
-        Map<String, Object> argMap = new HashMap<String, Object>();
+    private void visit(boolean showDialog){
+        Map<String, String> argMap = new HashMap<String, String>();
         argMap.put("jsonParame",params);
-        PopupVisitTask visitTask = new PopupVisitTask(this, "test", activityTitleSampleA, "", showDialog, url, argMap, TaskConstant.POST);
-        visitTask.setiOnResultListener(new IOnResultListener() {
+        final OKHttpTask okHttpTask = new OKHttpTask(BaseApplication.self(), "test", activityTitleSampleA, showDialog, url, argMap, OkHttpUtil.POST,ResultEntity.class);
+        okHttpTask.setOnVisitResultListener(new IOnVisitResultListener<ResultEntity>() {
             @Override
-            public void onSuccess(VisitTask task) {
-
+            public void onSuccess(ResultEntity res) {
+                LogUtil.e("onSuccess:" + res.getCode());
             }
 
             @Override
-            public void onError(VisitTask task) {
-
+            public void onError(String msg) {
+                LogUtil.e("onError:"+msg);
             }
 
             @Override
-            public void onDone(VisitTask task) {
+            public void onFinish() {
+                LogUtil.e("onFinish:"+System.currentTimeMillis());
+            }
+
+            @Override
+            public void onProgress(long bytes, long contentLength) {
 
             }
         });
-        visitTask.execute();
+        okHttpTask.execute();
     }
+
+    private void download(boolean showDialog){
+        OKHttpTask okHttpTask = new OKHttpTask(BaseApplication.self(),"test",OKHttpTask.PROGRESSSTYLE,activityTitleSampleA,showDialog,OKHttpTask.DOWNLOAD_FILE_VISIT,apk, BaseConstant.APK_PATH, ResultEntity.class);
+        okHttpTask.setOnVisitResultListener(new IOnVisitResultListener<String>() {
+            @Override
+            public void onSuccess(String res) {
+                LogUtil.e("onSuccess:" + res);
+                SystemUtil.install(TestVisitActivity.this, res);
+            }
+
+            @Override
+            public void onError(String msg) {
+                LogUtil.e("onError:");
+            }
+
+            @Override
+            public void onFinish() {
+                LogUtil.e("onFinish:");
+            }
+
+            @Override
+            public void onProgress(long bytes, long contentLength) {
+                LogUtil.e("onProgress:" + bytes+"   contentLength="+contentLength);
+            }
+        });
+        okHttpTask.getPopupUtil().setDismissKeyback(true);
+        okHttpTask.execute();
+    }
+
 }
