@@ -2,7 +2,7 @@ package com.little.sample.base;
 
 import android.content.Context;
 
-import com.little.visit.util.LogUtil;
+import com.little.visit.okhttp.OkHttpUtil;
 
 import java.io.File;
 
@@ -40,7 +40,7 @@ public class BaseConstant {
             apkFile.mkdirs();
         }
         APK_PATH = context.getExternalFilesDir("") + "/apk/app.apk";
-        LogUtil.setIsDebug(IS_DEBUG);//设置打印日志开关
+        OkHttpUtil.getInstance(BaseApplication.self()).setIS_DEBUG(IS_DEBUG);//设置打印日志开关
     }
 
     //访问路径
