@@ -1,1 +1,1 @@
-include ':app', ':popup', ':picture', ':picker', ':drop', ':title', ':swipe', ':visit'
+include ':app', ':popup', ':picker', ':drop', ':title', ':swipe', ':visit'
