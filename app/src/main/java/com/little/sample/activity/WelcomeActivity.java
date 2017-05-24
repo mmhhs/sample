@@ -11,8 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.little.picture.util.fresco.FrescoUtils;
-import com.little.picture.util.fresco.InstrumentedDraweeView;
+import com.little.picture.glide.GlideUtil;
 import com.little.sample.R;
 import com.little.sample.base.BaseConstant;
 import com.little.sample.base.BaseFragmentActivity;
@@ -33,7 +32,7 @@ public class WelcomeActivity extends BaseFragmentActivity {
 	@InjectView(R.id.activity_welcome_imageView)
 	public ImageView imageView ;
 	@InjectView(R.id.activity_welcome_draweeView)
-	public InstrumentedDraweeView adView ;
+	public ImageView adView ;
 	@InjectView(R.id.activity_welcome_progress_bg)
 	public ImageView progressBg;
 	@InjectView(R.id.activity_welcome_progress)
@@ -87,7 +86,7 @@ public class WelcomeActivity extends BaseFragmentActivity {
 					progressBar.startCountdown();
 					progressBar.setVisibility(View.VISIBLE);
 					progressBg.setVisibility(View.VISIBLE);
-					FrescoUtils.displayImage(adView, SharedPreferencesUtil.getAdImage(this), BaseConstant.SCALE_WIDTH, BaseConstant.SCALE_HEIGHT);
+					GlideUtil.getInstance().display(WelcomeActivity.this, SharedPreferencesUtil.getAdImage(this), adView, BaseConstant.SCALE_WIDTH, BaseConstant.SCALE_HEIGHT);
 				}else {
 					progressBar.setVisibility(View.GONE);
 					progressBg.setVisibility(View.GONE);
@@ -122,7 +121,6 @@ public class WelcomeActivity extends BaseFragmentActivity {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				Message message = new Message();
 				message.what = 1;
 				handler.sendMessage(message);

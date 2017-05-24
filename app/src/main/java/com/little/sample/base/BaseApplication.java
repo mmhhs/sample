@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
-import com.little.picture.util.fresco.FrescoUtils;
 import com.little.sample.daemon.DaemonHelper;
 import com.little.sample.daemon.KeepLiveActivity;
 import com.little.sample.daemon.KeepLiveManager;
@@ -59,7 +58,6 @@ public class BaseApplication extends MultiDexApplication {
      * 主进程执行初始化
      */
     private void initAppForMainProcess(){
-        FrescoUtils.init(this);
         KeepLiveManager.getInstance().startKeepLiveService();
         KeepLiveManager.getInstance().addAccount();
         OkHttpFinalConfiguration.Builder builder = new OkHttpFinalConfiguration.Builder();

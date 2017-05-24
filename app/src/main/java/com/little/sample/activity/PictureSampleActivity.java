@@ -8,16 +8,16 @@ import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.little.picture.PicturePickActivity;
+import com.little.picture.glide.GlideUtil;
 import com.little.picture.listener.IOnDeleteListener;
 import com.little.picture.listener.IOnItemClickListener;
 import com.little.picture.util.ImageChooseUtil;
 import com.little.picture.util.ImagePreviewUtil;
 import com.little.picture.util.ImageUtil;
-import com.little.picture.util.fresco.FrescoUtils;
-import com.little.picture.util.fresco.InstrumentedDraweeView;
 import com.little.popup.PopupDialog;
 import com.little.popup.listener.IOnItemListener;
 import com.little.sample.R;
@@ -36,8 +36,8 @@ public class PictureSampleActivity extends Activity {
 
     @InjectView(R.id.activity_picture_sample_single)
     TextView activityPictureSampleSingle;
-    @InjectView(R.id.picture_fresco_center_crop_draweeView)
-    InstrumentedDraweeView pictureFrescoCenterCropDraweeView;
+    @InjectView(R.id.activity_picture_sample_imageView)
+    ImageView imageView;
     @InjectView(R.id.activity_picture_sample_gridView)
     GridView activityPictureSampleGridView;
     //多张照片
@@ -183,7 +183,7 @@ public class PictureSampleActivity extends Activity {
                 case ImageChooseUtil.PHOTO_WITH_CAMERA:
                     if (!isCrop){
                         String path = imageChooseUtil.getTakePhotoScaleUrl();//获取拍照压缩路径
-                        FrescoUtils.displayImage(pictureFrescoCenterCropDraweeView,ImageUtil.completeImagePath(path),ImageUtil.dip2px(PictureSampleActivity.this,80),ImageUtil.dip2px(PictureSampleActivity.this,80));
+                        GlideUtil.getInstance().display(PictureSampleActivity.this,ImageUtil.completeImagePath(path), imageView,ImageUtil.dip2px(PictureSampleActivity.this,80),ImageUtil.dip2px(PictureSampleActivity.this,80));
                     }else {
                         imageChooseUtil.doCropPhoto(imageChooseUtil.getTakeUri());
                     }
@@ -191,7 +191,7 @@ public class PictureSampleActivity extends Activity {
                 case ImageChooseUtil.CHOOSE_PICTURE:
                     if (!isCrop){
                         String galleryPath = imageChooseUtil.getGalleryUrl(data);//获取图库路径
-                        FrescoUtils.displayImage(pictureFrescoCenterCropDraweeView,ImageUtil.completeImagePath(galleryPath),ImageUtil.dip2px(PictureSampleActivity.this,80),ImageUtil.dip2px(PictureSampleActivity.this,80));
+                        GlideUtil.getInstance().display(PictureSampleActivity.this, ImageUtil.completeImagePath(galleryPath), imageView, ImageUtil.dip2px(PictureSampleActivity.this, 80), ImageUtil.dip2px(PictureSampleActivity.this, 80));
                     }else {
                         imageChooseUtil.doCropPhoto(imageChooseUtil.getGalleryUri(data));
                     }
@@ -205,7 +205,7 @@ public class PictureSampleActivity extends Activity {
                     }
                     boolean saveResult = ImageUtil.saveJPGE_After(headPhoto, 100, imagePath);
                     if (saveResult){
-                        FrescoUtils.displayImage(pictureFrescoCenterCropDraweeView,ImageUtil.completeImagePath(imagePath),ImageUtil.dip2px(PictureSampleActivity.this,80),ImageUtil.dip2px(PictureSampleActivity.this,80));
+                        GlideUtil.getInstance().display(PictureSampleActivity.this, ImageUtil.completeImagePath(imagePath), imageView, ImageUtil.dip2px(PictureSampleActivity.this, 80), ImageUtil.dip2px(PictureSampleActivity.this, 80));
                     }
                     break;
             }

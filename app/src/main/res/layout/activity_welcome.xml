@@ -17,19 +17,11 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <com.little.picture.util.fresco.InstrumentedDraweeView
-                android:id="@+id/activity_welcome_draweeView"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:actualImageScaleType="centerCrop"
-                app:fadeDuration="30"
-                app:failureImage="@color/title_color"
-                app:failureImageScaleType="centerCrop"
-                app:placeholderImage="@color/title_color"
-                app:placeholderImageScaleType="centerCrop"
-                app:retryImage="@color/title_color"
-                app:retryImageScaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                android:id="@+id/activity_welcome_draweeView"/>
 
             <ImageView
                 android:id="@+id/activity_welcome_progress_bg"

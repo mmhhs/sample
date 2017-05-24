@@ -26,11 +26,12 @@
         android:background="@color/popup_white"
         android:id="@+id/activity_picture_sample_single"/>
 
-    <include
+    <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="20dp"
-        layout="@layout/picture_fresco_center_crop" />
+        android:scaleType="centerCrop"
+        android:id="@+id/activity_picture_sample_imageView"/>
 
     <TextView
         android:layout_width="match_parent"

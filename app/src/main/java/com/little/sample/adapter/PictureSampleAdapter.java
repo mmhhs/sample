@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.little.picture.glide.GlideUtil;
 import com.little.picture.listener.IOnItemClickListener;
 import com.little.picture.util.ImageUtil;
-import com.little.picture.util.fresco.FrescoUtils;
-import com.little.picture.util.fresco.InstrumentedDraweeView;
 import com.little.sample.R;
 
 import java.util.List;
@@ -71,7 +71,7 @@ public class PictureSampleAdapter extends BaseAdapter{
         }else {
             viewHolder.addText.setVisibility(View.GONE);
             viewHolder.contentImage.setVisibility(View.VISIBLE);
-            FrescoUtils.displayImage(viewHolder.contentImage, ImageUtil.completeImagePath(list.get(position)));
+            GlideUtil.getInstance().display(context, ImageUtil.completeImagePath(list.get(position)), viewHolder.contentImage);
         }
         final int p = position;
         viewHolder.containerLayout.setOnClickListener(new View.OnClickListener() {
@@ -86,8 +86,8 @@ public class PictureSampleAdapter extends BaseAdapter{
     }
 
     public final static class ViewHolder {
-        @InjectView(R.id.picture_fresco_center_crop_draweeView)
-        public InstrumentedDraweeView contentImage;
+        @InjectView(R.id.adapter_picture_sample_imageview)
+        public ImageView contentImage;
         @InjectView(R.id.adapter_picture_sample_add)
         public TextView addText;
         @InjectView(R.id.adapter_picture_sample_layout)
