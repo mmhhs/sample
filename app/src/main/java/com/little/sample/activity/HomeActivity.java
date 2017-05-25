@@ -98,13 +98,13 @@ public class HomeActivity extends BaseFragmentActivity implements IOnPermissionL
 //        if (BaseConstant.IS_KEEP_LIVE){
 //            CompatIntentWrapper.whiteListMatters(this, "轨迹跟踪服务的持续运行");
 //        }
-        PermissionUtil.doACacheNeedsPermissionWithCheck(this);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(HomeActivity.this,TestVisitActivity.class));
-            }
-        },3000);
+//        PermissionUtil.doACacheNeedsPermissionWithCheck(this);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startActivity(new Intent(HomeActivity.this,TestVisitActivity.class));
+//            }
+//        },3000);
     }
 
     @Override
