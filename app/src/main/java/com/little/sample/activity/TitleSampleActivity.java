@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.little.sample.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
@@ -18,18 +18,18 @@ import butterknife.OnClick;
  */
 public class TitleSampleActivity extends Activity {
 
-    @InjectView(R.id.activity_title_sample_a)
+    @BindView(R.id.activity_title_sample_a)
     TextView activityTitleSampleA;
-    @InjectView(R.id.activity_title_sample_b)
+    @BindView(R.id.activity_title_sample_b)
     TextView activityTitleSampleB;
-    @InjectView(R.id.activity_title_sample_c)
+    @BindView(R.id.activity_title_sample_c)
     TextView activityTitleSampleC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
 

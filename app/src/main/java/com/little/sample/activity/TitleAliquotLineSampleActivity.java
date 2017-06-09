@@ -17,16 +17,16 @@ import com.little.title.model.TitleItem;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class TitleAliquotLineSampleActivity extends FragmentActivity {
 
-    @InjectView(R.id.activity_title_center_sample_titlePagerLayout)
+    @BindView(R.id.activity_title_center_sample_titlePagerLayout)
     TitlePagerLayout activityTitleCenterSampleTitlePagerLayout;
-    @InjectView(R.id.activity_title_center_sample_viewPager)
+    @BindView(R.id.activity_title_center_sample_viewPager)
     ViewPager activityTitleCenterSampleViewPager;
-    @InjectView(R.id.activity_title_center_sample_pageIndicatorView)
+    @BindView(R.id.activity_title_center_sample_pageIndicatorView)
     PageIndicatorView pageIndicatorView;
 
     private FragmentVPAdapter mFragmentPagerAdapter;
@@ -38,7 +38,7 @@ public class TitleAliquotLineSampleActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_center_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         init();
     }
 

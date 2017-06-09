@@ -19,15 +19,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class VisitSampleActivity extends Activity {
 
-    @InjectView(R.id.activity_visit_sample_a)
+    @BindView(R.id.activity_visit_sample_a)
     TextView activityVisitSampleA;
-    @InjectView(R.id.activity_visit_sample_b)
+    @BindView(R.id.activity_visit_sample_b)
     TextView activityVisitSampleB;
     String tagStr = "VisitSampleActivity";//task唯一标识
     private List<VisitSampleDataEntity> resultList;
@@ -36,7 +36,7 @@ public class VisitSampleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
 

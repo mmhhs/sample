@@ -15,8 +15,8 @@ import com.little.sample.model.VisitSampleDataEntity;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 
 public class DropSampleAdapter extends UltimateViewAdapter {
@@ -76,12 +76,12 @@ public class DropSampleAdapter extends UltimateViewAdapter {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.adapter_drop_sample_layout)
+        @BindView(R.id.adapter_drop_sample_layout)
         LinearLayout adapterDropSampleLayout;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 

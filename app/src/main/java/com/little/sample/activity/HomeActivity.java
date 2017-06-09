@@ -19,13 +19,14 @@ import com.little.picture.util.ToastUtil;
 import com.little.sample.R;
 import com.little.sample.base.BaseConstant;
 import com.little.sample.base.BaseFragmentActivity;
+import com.little.sample.daemon.CompatIntentWrapper;
 import com.little.sample.fragment.DropArrowSampleFragment;
 import com.little.sample.fragment.DropCustomSampleFragment;
 import com.little.sample.fragment.DropSwipeSampleFragment;
 import com.little.sample.listener.IOnPermissionListener;
 import com.little.sample.util.PermissionUtil;
 
-import butterknife.InjectView;
+import butterknife.BindView;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -35,13 +36,13 @@ import permissions.dispatcher.PermissionRequest;
 
 
 public class HomeActivity extends BaseFragmentActivity implements IOnPermissionListener {
-    @InjectView(android.R.id.tabhost)
+    @BindView(android.R.id.tabhost)
     public FragmentTabHost mTabHost;
-    @InjectView(R.id.activity_home_tab_text0)
+    @BindView(R.id.activity_home_tab_text0)
     public TextView naviText0;
-    @InjectView(R.id.activity_home_tab_text1)
+    @BindView(R.id.activity_home_tab_text1)
     public TextView naviText1;
-    @InjectView(R.id.activity_home_tab_text2)
+    @BindView(R.id.activity_home_tab_text2)
     public TextView naviText2;
     public int tabFlag = 0;
     private ReceiveBroadcast receiveBroadcast;
@@ -236,9 +237,9 @@ public class HomeActivity extends BaseFragmentActivity implements IOnPermissionL
     public void onBackPressed() {
         try {
             //防止华为机型未加入白名单时按返回键回到桌面再锁屏后几秒钟进程被杀
-//            if (BaseConstant.IS_KEEP_LIVE){
-//                CompatIntentWrapper.onBackPressed(this);
-//            }else {
+            if (BaseConstant.IS_KEEP_LIVE){
+                CompatIntentWrapper.onBackPressed(this);
+            }else {
                 long secondTime = System.currentTimeMillis();
                 if (secondTime - firstTime > 2000) {
                     ToastUtil.addToast(this, getString(R.string.quit));
@@ -246,7 +247,7 @@ public class HomeActivity extends BaseFragmentActivity implements IOnPermissionL
                 } else {
                     finishSelf();
                 }
-//            }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

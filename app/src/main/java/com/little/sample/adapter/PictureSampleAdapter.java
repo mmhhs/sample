@@ -16,8 +16,8 @@ import com.little.sample.R;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class PictureSampleAdapter extends BaseAdapter{
     public Context context;
@@ -86,15 +86,15 @@ public class PictureSampleAdapter extends BaseAdapter{
     }
 
     public final static class ViewHolder {
-        @InjectView(R.id.adapter_picture_sample_imageview)
+        @BindView(R.id.adapter_picture_sample_imageview)
         public ImageView contentImage;
-        @InjectView(R.id.adapter_picture_sample_add)
+        @BindView(R.id.adapter_picture_sample_add)
         public TextView addText;
-        @InjectView(R.id.adapter_picture_sample_layout)
+        @BindView(R.id.adapter_picture_sample_layout)
         public RelativeLayout containerLayout;
 
         public ViewHolder(View convertView) {
-            ButterKnife.inject(this, convertView);
+            ButterKnife.bind(this, convertView);
         }
     }
 

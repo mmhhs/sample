@@ -28,17 +28,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class PictureSampleActivity extends Activity {
 
-    @InjectView(R.id.activity_picture_sample_single)
+    @BindView(R.id.activity_picture_sample_single)
     TextView activityPictureSampleSingle;
-    @InjectView(R.id.activity_picture_sample_imageView)
+    @BindView(R.id.activity_picture_sample_imageView)
     ImageView imageView;
-    @InjectView(R.id.activity_picture_sample_gridView)
+    @BindView(R.id.activity_picture_sample_gridView)
     GridView activityPictureSampleGridView;
     //多张照片
     private PictureBroadcastReceiver pictureBroadcastReceiver;
@@ -56,7 +56,7 @@ public class PictureSampleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picture_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         init();
     }
 

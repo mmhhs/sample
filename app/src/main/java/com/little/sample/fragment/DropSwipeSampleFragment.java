@@ -25,17 +25,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Unbinder;
 
 
 public class DropSwipeSampleFragment extends Fragment {
     public View rootView;
-    @InjectView(R.id.fragment_drop_swipe_recyclerview)
+    private Unbinder unbinder;
+    @BindView(R.id.fragment_drop_swipe_recyclerview)
     UltimateRecyclerView fragmentDropSwipeRecyclerview;
-    @InjectView(R.id.visit_link_container)
+    @BindView(R.id.visit_link_container)
     LinearLayout visitLinkContainer;
-    @InjectView(R.id.visit_link_loading_layout)
+    @BindView(R.id.visit_link_loading_layout)
     LinearLayout visitLinkLoadingLayout;
     private LinearLayoutManager linearLayoutManager;
     private DropSampleAdapter adapter;
@@ -56,14 +58,14 @@ public class DropSwipeSampleFragment extends Fragment {
             rootView = inflater.inflate(R.layout.fragment_drop_swipe_sample, null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             rootView.setLayoutParams(params);
-            ButterKnife.inject(this, rootView);
+            unbinder = ButterKnife.bind(this, rootView);
             init();
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
             parent.removeView(rootView);
         }
-        ButterKnife.inject(this, rootView);
+        ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -71,7 +73,7 @@ public class DropSwipeSampleFragment extends Fragment {
     public void onResume() {
         super.onResume();
         try {
-            ButterKnife.inject(this, rootView);
+            unbinder = ButterKnife.bind(this, rootView);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,8 +92,12 @@ public class DropSwipeSampleFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+        try {
+            unbinder.unbind();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         super.onDestroyView();
-        ButterKnife.reset(this);
     }
 
     private void initUltimate() {

@@ -8,22 +8,22 @@ import android.widget.TextView;
 
 import com.little.sample.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class SwipeSampleActivity extends Activity {
 
-    @InjectView(R.id.activity_swipe_sample_a)
+    @BindView(R.id.activity_swipe_sample_a)
     TextView activitySwipeSampleA;
-    @InjectView(R.id.activity_swipe_sample_b)
+    @BindView(R.id.activity_swipe_sample_b)
     TextView activitySwipeSampleB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
 

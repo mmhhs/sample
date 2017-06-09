@@ -26,7 +26,7 @@ public abstract class BaseFragmentActivity extends FragmentActivity {
 	@Override
 	public void setContentView(int layoutResID) {
 		super.setContentView(layoutResID);
-		ButterKnife.inject(this);
+		ButterKnife.bind(this);
 		TranslucentUtil.getInstance(this).setKitKatTranslucency();
 		init();
 	}

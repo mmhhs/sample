@@ -10,15 +10,15 @@ import com.little.picker.DatePickerPopup;
 import com.little.picture.util.ToastUtil;
 import com.little.sample.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class PickerSampleActivity extends Activity {
 
-    @InjectView(R.id.activity_picker_sample_date)
+    @BindView(R.id.activity_picker_sample_date)
     TextView activityPickerSampleDate;
-    @InjectView(R.id.activity_picker_sample_hour)
+    @BindView(R.id.activity_picker_sample_hour)
     TextView activityPickerSampleHour;
     private DatePickerPopup datePickerPopup;
 
@@ -26,7 +26,7 @@ public class PickerSampleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_picker_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
     }
 
     DatePickerPopup.OnDatePickedListener onDatePickedListener = new DatePickerPopup.OnDatePickedListener() {

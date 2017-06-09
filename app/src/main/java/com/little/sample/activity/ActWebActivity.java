@@ -22,22 +22,21 @@ import com.little.visit.listener.IOnRetryListener;
 import com.little.visit.util.HttpUtil;
 import com.little.visit.util.ViewUtil;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.BindView;
 
 import static android.view.View.GONE;
 
 
 public class ActWebActivity extends BaseActivity {
-    @InjectView(R.id.activity_act_web_webView)
+    @BindView(R.id.activity_act_web_webView)
     public WebView webView;
-    @InjectView(R.id.visit_link_container)
+    @BindView(R.id.visit_link_container)
     LinearLayout visitLinkContainer;
-    @InjectView(R.id.visit_link_loading_layout)
+    @BindView(R.id.visit_link_loading_layout)
     LinearLayout visitLinkLoadingLayout;
-    @InjectView(R.id.visit_link_progress)
+    @BindView(R.id.visit_link_progress)
     ProgressBar visitLinkProgress;
-    @InjectView(R.id.activity_act_web_title)
+    @BindView(R.id.activity_act_web_title)
     TextView activityActWebTitle;
     private String titleStr, urlStr;
     public ViewUtil viewTool;
@@ -47,7 +46,6 @@ public class ActWebActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setTaskTag(getClass().getSimpleName());
         setContentView(R.layout.activity_act_web);
-        ButterKnife.inject(this);
     }
 
     @Override

@@ -14,9 +14,6 @@ import com.little.sample.util.ProcessUtil;
 import com.little.sample.util.StringUtil;
 import com.little.visit.util.LogUtil;
 
-import cn.finalteam.okhttpfinal.OkHttpFinal;
-import cn.finalteam.okhttpfinal.OkHttpFinalConfiguration;
-
 
 public class BaseApplication extends MultiDexApplication {
     private static BaseApplication baseApplication;
@@ -60,8 +57,6 @@ public class BaseApplication extends MultiDexApplication {
     private void initAppForMainProcess(){
         KeepLiveManager.getInstance().startKeepLiveService();
         KeepLiveManager.getInstance().addAccount();
-        OkHttpFinalConfiguration.Builder builder = new OkHttpFinalConfiguration.Builder();
-        OkHttpFinal.getInstance().init(builder.build());
     }
 
     private void initAppForLiveProcess(){

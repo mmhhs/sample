@@ -20,15 +20,17 @@ import com.little.sample.listener.IOnClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Unbinder;
 
 
 public class WelcomeFragment extends BaseFragment implements OnPageChangeListener {
     public View rootView;
-    @InjectView(R.id.fragment_welcome_viewPager)
+	private Unbinder unbinder;
+    @BindView(R.id.fragment_welcome_viewPager)
     public ViewPager mViewPager;
-    @InjectView(R.id.fragment_welcome_pageIndicatorView)
+    @BindView(R.id.fragment_welcome_pageIndicatorView)
     public PageIndicatorView mPageIndicatorView;
 	private ViewPagerAdapter adapter;
 	private List<Integer> imgList = new ArrayList<Integer>();
@@ -47,7 +49,7 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
         if (rootView == null)
         {
             rootView = inflater.inflate(R.layout.fragment_welcome,null);
-            ButterKnife.inject(this, rootView);
+			unbinder = ButterKnife.bind(this, rootView);
             init();
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -57,6 +59,16 @@ public class WelcomeFragment extends BaseFragment implements OnPageChangeListene
         }
         return rootView;
     }
+
+	@Override
+	public void onDestroyView() {
+		try {
+			unbinder.unbind();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		super.onDestroyView();
+	}
 
     @Override
     public void init(){

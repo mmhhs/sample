@@ -13,13 +13,13 @@ import com.little.sample.base.BaseConstant;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class SampleActivity extends Activity {
 
-    @InjectView(R.id.activity_sample_component)
+    @BindView(R.id.activity_sample_component)
     TextView activitySampleComponent;
     private List<String> componentList = new ArrayList<String>();
 
@@ -27,7 +27,7 @@ public class SampleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         componentList.add("网络访问");
         componentList.add("弹窗");
         componentList.add("下拉刷新");
@@ -46,7 +46,7 @@ public class SampleActivity extends Activity {
             public void onItem(int position) {
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(SampleActivity.this, VisitSampleActivity.class));
+                        startActivity(new Intent(SampleActivity.this, TestVisitActivity.class));
                         break;
                     case 1:
                         startActivity(new Intent(SampleActivity.this, PopupSampleActivity.class));

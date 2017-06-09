@@ -19,8 +19,8 @@ import com.little.sample.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 
 public class PageView extends LinearLayout {
@@ -184,15 +184,15 @@ public class PageView extends LinearLayout {
 	}
 
 	public class PageViewHolder {
-		@InjectView(R.id.view_page_viewPager)
+		@BindView(R.id.view_page_viewPager)
 		public ViewPager viewPager;
-		@InjectView(R.id.view_page_pageIndicatorView)
+		@BindView(R.id.view_page_pageIndicatorView)
 		public PageIndicatorView pageIndicatorView;
-		@InjectView(R.id.view_page_layout)
+		@BindView(R.id.view_page_layout)
 		public FrameLayout frameLayout;
 
 		public PageViewHolder(View itemView) {
-			ButterKnife.inject(this, itemView);
+			ButterKnife.bind(this, itemView);
 		}
 	}
 }

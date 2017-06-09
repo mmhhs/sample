@@ -25,19 +25,19 @@ import com.little.sample.view.RoundProgressBar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import butterknife.InjectView;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class WelcomeActivity extends BaseFragmentActivity {
-	@InjectView(R.id.activity_welcome_imageView)
+	@BindView(R.id.activity_welcome_imageView)
 	public ImageView imageView ;
-	@InjectView(R.id.activity_welcome_draweeView)
+	@BindView(R.id.activity_welcome_draweeView)
 	public ImageView adView ;
-	@InjectView(R.id.activity_welcome_progress_bg)
+	@BindView(R.id.activity_welcome_progress_bg)
 	public ImageView progressBg;
-	@InjectView(R.id.activity_welcome_progress)
+	@BindView(R.id.activity_welcome_progress)
 	public RoundProgressBar progressBar;
-	@InjectView(R.id.activity_welcome_fragment)
+	@BindView(R.id.activity_welcome_fragment)
 	public LinearLayout proLinear;
 	private Handler handler;
 	private Timer timer;

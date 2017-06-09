@@ -54,7 +54,7 @@
             android:name=".activity.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/TransparentTheme"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -257,7 +257,9 @@
         <service
             android:name=".daemon.KeepWatchService$WatchDogNotificationService"
             android:process=":watch" />
-
+        <!--<meta-data-->
+            <!--android:name="com.little.picture.glide.GlideConfigModule"-->
+            <!--android:value="GlideModule"/>-->
     </application>
 
 </manifest>

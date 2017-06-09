@@ -27,7 +27,7 @@ public class PopupSampleActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popup_sample);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         for(int i=0;i<20;i++){
             testList.add("第"+i+"条");
         }
