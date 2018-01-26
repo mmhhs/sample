@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,8 +33,8 @@ public class ImageChooseUtil implements Serializable{
 	public static final int CHOOSE_PICTURE = 117;//图库选取
 	public static final int PHOTO_PICKED_WITH_CROP = 118;//裁剪
 
-	public static int SCALE_WIDTH = 360;//缩放至的宽度
-	public static int SCALE_HEIGHT = 640;//缩放至的高度
+	public static int SCALE_WIDTH = 720;//缩放至的宽度
+	public static int SCALE_HEIGHT = 720;//缩放至的高度
 	public static int quality = 100;//图像质量
 	private static String imagePathFolder = "";//存储图片的文件夹
 	private static Uri imageUri;
@@ -42,6 +43,7 @@ public class ImageChooseUtil implements Serializable{
 	private Fragment fragment;
 	private Context context;
 	private MediaScannerConnection msc;
+	private String authority = "com.little.sample.fileprovider";
 
 	/**
 	 * 在Activity中使用
@@ -98,14 +100,17 @@ public class ImageChooseUtil implements Serializable{
 	/** 拍照获取相片 **/
 	public  void doTakePhoto() {
 		try {
-			Intent intent = new Intent();
-			intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE); //  MediaStore.ACTION_IMAGE_CAPTURE
-			intent.putExtra("return-data", true); // 有返回值
-			imageUrl = imagePathFolder+"image.jpg";
-			imageUri = Uri.fromFile(new File(imageUrl));
-			// 指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
-			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-			// 直接使用，没有缩小
+			imageUrl = imagePathFolder + "image.jpg";
+			File file = new File(imageUrl);
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+				imageUri = FileProvider.getUriForFile(context, authority, file);
+				intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+			}else {
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+				imageUri = Uri.fromFile(new File(imageUrl));
+			}
 			if (activity !=null){
 				activity.startActivityForResult(intent, PHOTO_WITH_CAMERA); // 用户点击了从相机获取
 			}else {
@@ -122,14 +127,17 @@ public class ImageChooseUtil implements Serializable{
 	/** 拍照获取多张相片 **/
 	public  void doTakePhotos() {
 		try {
-			Intent intent = new Intent();
-			intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-			intent.putExtra("return-data", true); // 有返回值
 			imageUrl = imagePathFolder +""+System.currentTimeMillis()+".jpg";
-			imageUri = Uri.fromFile(new File(imageUrl));
-			// 指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
-			intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-			// 直接使用，没有缩小
+			File file = new File(imageUrl);
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+				imageUri = FileProvider.getUriForFile(context, authority, file);
+				intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+				intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+			}else {
+				intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+				imageUri = Uri.fromFile(new File(imageUrl));
+			}
 			if (activity !=null){
 				activity.startActivityForResult(intent, PHOTO_WITH_CAMERA); // 用户点击了从相机获取
 			}else {
@@ -603,5 +611,13 @@ public class ImageChooseUtil implements Serializable{
 
 	public static void setImagePathFolder(String imagePathFolder) {
 		ImageChooseUtil.imagePathFolder = imagePathFolder;
+	}
+
+	public String getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 }

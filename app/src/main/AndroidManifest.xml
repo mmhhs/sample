@@ -50,6 +50,19 @@
         android:label="@string/app_name"
         android:persistent="true"
         android:theme="@style/AppTheme" >
+
+        <!-- 7.0拍照 start -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.foton.almighty.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+        <!-- 7.0拍照 end -->
+        
         <activity
             android:name=".activity.WelcomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
